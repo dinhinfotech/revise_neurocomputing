@@ -1,0 +1,82 @@
+\documentclass[11pt]{article}
+\usepackage{color}
+\usepackage{amsthm,amsmath,amsfonts}
+\usepackage[utf8x]{inputenc}
+\title{Revision notes for paper\\``The Conjunctive Disjunctive Graph Node Kernel''}
+\author{Dinh Tran Van, Alessandro Sperduti and Fabrizio Costa }
+\begin{document}
+\maketitle
+
+We thank the reviewer for the reviews and helpful comments on our manuscript ``The Conjunctive Disjunctive Graph Node Kernel''. 
+In the following, we provide a description of how each comment (in \emph{italic}) has been addressed in this version of the paper.
+
+\section{Reviewer 1}
+\subsection*{1}
+\begin{itemize}
+\item \textit{lines 10-15: if the first claim (bias toward high degree nodes for the heat kernel) is understandable, the others are not and I don't get how the diffusion kernel (for instance) solves this issue, since it is very similar to the previous one. An evaluation of how the kernels address this property should be included in the experimental section or the authors should cite a paper already studying this property on different kernels;}
+
+\underline{Answer}: 
+
+\item \textit{lines 20-25: what does "process in an additive and independent fashion" mean in this context. Similarly as before, please justify your claim about the poor discriminative power of these kernels;
+}
+
+\underline{Answer}: 
+
+\item \textit{lines 146-150: The first claim is misleading. The problem is not that the degree of some nodes is high it is that the degree distribution is highly skewed (and you must include a reference stating this fact for biological networks, as well as describe the own networks on which you are working for this property). Also, the rest of the argument is very strange: how do you get that the probability to find matches decreases exponentially. If there is a mathematical argument behind it, please, detail it;}
+
+\underline{Answer}: 
+
+\end{itemize}
+
+\subsection*{2} \textit{The paper is oriented exclusively toward an given application in biology. However, it is not visible from the title of the article and methodological choices are seldom justified in this context. Gene labelling should be evaluated: for instance, it would have been helpful to have a descriptive evaluation of the results of those labels in the experiment section. For the topological labelling, what is the biological meaning of nodes with similar degree being more similar? (give a reference) I don't understand if the topological labels are considered as a discrete or numerical label? An example of the way it partitions the network would be useful. For the functional labelling, evaluate your clusters in a way. Do they somehow relate to the graph structure or not? Do they correspond to clusters enriched in some functions? How robust is this clustering to very incomplete information as found in GO databases? In a similar fashion, can you provide an evaluation of your
+decomposition on the networks you are working with?}
+
+\underline{Answer}: 
+
+\subsection*{3} \textit{The paper is extremely badly organized, with some notions (like conjunctive and disjunctive edges) used before they are defined. I suggest the following re-organization of the paper:}
+
+\begin{enumerate}
+\item \textit{Introduction (that must include a discussion about the problem at stake, gene prioritization)}
+
+\underline{Answer}: 
+
+\item \textit{A new kernel (or whatever title you want more informative than "Material and methods" that is a title better suited for bioinformatics journals) with A. Notations B. Node graph kernels + their problems C. Network decomposition D. Your kernel (with the case of discrete and numerical labels separated)}
+
+\underline{Answer}: 
+
+\item \textit{Examples of node labelling in your context (to my opinion, Section 2.2.2 does not need the labels to be known. Just explain the kernel in Section 2 and then, in a separate section afterwards, explain your proposals for labelling with a better illustration of their usefulness in the biological framework)}
+
+\underline{Answer}: 
+
+\item \textit{Experiments (since the discussion section is very short, I don't think that it is necessary or even relevant to have it separated from the rest of the paper)}
+\end{enumerate}
+
+\underline{Answer}: 
+
+\subsection*{4} \textit{The experimental part is very light. I would have expected to see an smart evaluation on a simulated dataset illustrating in which theoretical cases the approach is relevant. I think that an evaluation of the sensitivity of the method to some parameters is missing. For instance, why use a gene co-expression network with a correlation threshold of 0.5? (To my own experience, this is a very low threshold that should give a very dense network and is not the standard choices in this area). Also, why have twice less negative examples than positive ones (this is very far from being realistic since positive genes are usually very rare in this kind of real-life applications)?} 
+
+\underline{Answer}: 
+
+\section{Reviewer 2}
+\begin{itemize}
+\item \textit{I have found the paper to be hard to follow. This is mostly due to the large number of "sub-methods" that are involved in the proposed apparach, and to the too simplified description of the "global picture" of what the authors are proposing. It would be better to have an initial section or a table or a figure to summarize and easily introduce what the authors are going to propose/describe in the rest of the paper.}
+
+\underline{Answer}: 
+
+\item \textit{Related to the previous comment, the notion of conjunctive and disjuctive edges seems central, however they are shortly mentioned in Section 2.2.2 and then shorlty re-defined (?) in Section 2.4. In the first case, the description of these edges must be expanced and clarified, togheter with some more details about Figure 1 (caption and text). Maybe it can be anticipated in the "Definitions" paragraph (page 3), or in the "initial decription" that I introduced in the previous comment.}
+
+\underline{Answer}: 
+
+\item \textit{Overall, there is very large number of parameters involved in the proposed approach. The authors describe their model validation procedure in Page 9/10, however the space of possible combinations of parameters is huge + the choices over other thresholds described in the paper. This seems to be an important drawback of the method, and some comments on this point should be added.}
+
+\underline{Answer}: The large number of parameters is a drawback of our propoased graph node kernel. However, some of them are suggested to have smale range of values to be effective. 
+
+\item \textit{Page 4, Functional label and real valued vector information encoding: The K-means algorithm is exploited, using the classical Euclidean distance, and the same distance is used in the vec.info.encoding. The authors should motivate this choice.}
+
+\underline{Answer}: We have added a more detailed explanation in the new version of the paper.
+
+\item \textit{Page 6, Section 2.3. A few words about the hash code computation can be helpful. }
+
+\underline{Answer}: We have added a more detailed explanation in the new version of the paper.
+\end{itemize}
+\end{document}

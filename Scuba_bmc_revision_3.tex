@@ -1,0 +1,685 @@
+%% BioMed_Central_Tex_Template_v1.06
+%%                                      %
+%  bmc_article.tex            ver: 1.06 %
+%                                       %
+
+%%IMPORTANT: do not delete the first line of this template
+%%It must be present to enable the BMC Submission system to
+%%recognise this template!!
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                     %%
+%%  LaTeX template for BioMed Central  %%
+%%     journal article submissions     %%
+%%                                     %%
+%%          <8 June 2012>              %%
+%%                                     %%
+%%                                     %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                 %%
+%% For instructions on how to fill out this Tex template           %%
+%% document please refer to Readme.html and the instructions for   %%
+%% authors page on the biomed central website                      %%
+%% http://www.biomedcentral.com/info/authors/                      %%
+%%                                                                 %%
+%% Please do not use \input{...} to include other tex files.       %%
+%% Submit your LaTeX manuscript as one .tex document.              %%
+%%                                                                 %%
+%% All additional figures and files should be attached             %%
+%% separately and not embedded in the \TeX\ document itself.       %%
+%%                                                                 %%
+%% BioMed Central currently use the MikTex distribution of         %%
+%% TeX for Windows) of TeX and LaTeX.  This is available from      %%
+%% http://www.miktex.org                                           %%
+%%                                                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% additional documentclass options:
+%  [doublespacing]
+%  [linenumbers]   - put the line numbers on margins
+
+%%% loading packages, author definitions
+
+\documentclass[twocolumn]{bmcart}% uncomment this for twocolumn layout and comment line below
+%\documentclass{bmcart}
+
+%%% Load packages
+\usepackage{amsthm,amsmath,amsfonts}
+%\RequirePackage{natbib}
+%\RequirePackage[authoryear]{natbib}% uncomment this for author-year bibliography
+%\RequirePackage{hyperref}
+\usepackage[utf8]{inputenc} %unicode support
+%\usepackage[applemac]{inputenc} %applemac support if unicode package fails
+%\usepackage[latin1]{inputenc} %UNIX support if unicode package fails
+\usepackage{color}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                             %%
+%%  If you wish to display your graphics for   %%
+%%  your own use using includegraphic or       %%
+%%  includegraphics, then comment out the      %%
+%%  following two lines of code.               %%
+%%  NB: These line *must* be included when     %%
+%%  submitting to BMC.                         %%
+%%  All figure files must be submitted as      %%
+%%  separate graphics through the BMC          %%
+%%  submission process, not included in the    %%
+%%  submitted article.                         %%
+%%                                             %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\def\includegraphic{}
+\def\includegraphics{}
+
+
+
+%%% Put your definitions there:
+\startlocaldefs
+\endlocaldefs
+
+
+%%% Begin ...
+\begin{document}
+
+%%% Start of article front matter
+\begin{frontmatter}
+
+\begin{fmbox}
+\dochead{Research}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% Enter the title of your article here     %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Scuba: scalable kernel-based gene prioritization}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% Enter the authors here                   %%
+%%                                          %%
+%% Specify information, if available,       %%
+%% in the form:                             %%
+%%   <key>={<id1>,<id2>}                    %%
+%%   <key>=                                 %%
+%% Comment or delete the keys which are     %%
+%% not used. Repeat \author command as much %%
+%% as required.                             %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\author[
+   addressref={cribi,sdb},                   % id's of addresses, e.g. {aff1,aff2}
+   noteref={n1},                        % id's of article notes, if any
+   email={guido.zampieri@phd.unipd.it}   % email address
+]{\inits{G}\fnm{Guido} \snm{Zampieri}}
+\author[
+   addressref={math},
+   noteref={n1},
+   email={dinh@math.unipd.it}
+]{\inits{DV}\fnm{Dinh Van} \snm{Tran}}
+\author[
+   addressref={iit},
+   email={michele.donini@iit.}
+]{\inits{M}\fnm{Michele} \snm{Donini}}
+\author[
+   addressref={math},
+   email={nnavarin@math.unipd.it}
+]{\inits{N}\fnm{Nicol\`o} \snm{Navarin}}
+\author[
+   addressref={math},
+   email={aiolli@math.unipd.it}
+]{\inits{F}\fnm{Fabio} \snm{Aiolli}}
+\author[
+   addressref={math},
+   email={sperduti@math.unipd.it}
+]{\inits{A}\fnm{Alessandro} \snm{Sperduti}}
+\author[
+   addressref={cribi,bio},
+   corref={cribi},                       % id of corresponding address, if any
+   email={giorgio.valle@unipd.it}
+]{\inits{G}\fnm{Giorgio} \snm{Valle}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% Enter the authors' addresses here        %%
+%%                                          %%
+%% Repeat \address commands as much as      %%
+%% required.                                %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\address[id=cribi]{%
+  \orgname{CRIBI Biotechnology Center, University of Padova},
+  \street{viale G. Colombo, 3},
+ % \postcode{24105}
+  \city{Padova},
+  \cny{Italy}
+}
+\address[id=sdb]{%                           % unique id
+  \orgname{Department of Women's and Children's Health, University of Padova}, % university, etc
+  \street{via Giustiniani, 3},                     %
+  %\postcode{}                                % post or zip code
+  \city{Padova},                              % city
+  \cny{Italy}                                    % country
+}
+\address[id=math]{%                           % unique id
+  \orgname{Department of Mathematics, University of Padova}, % university, etc
+  \street{via Trieste, 63},                     %
+  %\postcode{}                                % post or zip code
+  \city{Padova},                              % city
+  \cny{Italy}                                    % country
+}
+\address[id=iit]{%                           % unique id
+  \orgname{Istituto Italiano di Tecnologia}, % university, etc
+  \street{Via Morego, 30},                     %
+  %\postcode{}                                % post or zip code
+  \city{Genoa},                              % city
+  \cny{Italy}                                    % country
+}
+\address[id=bio]{%                           % unique id
+  \orgname{Department of Biology, University of Padova}, % university, etc
+  \street{viale G. Colombo, 3},                     %
+  %\postcode{}                                % post or zip code
+  \city{Padova},                              % city
+  \cny{Italy}                                    % country
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% Enter short notes here                   %%
+%%                                          %%
+%% Short notes will be after addresses      %%
+%% on first page.                           %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{artnotes}
+%\note{Sample of title note}     % note to the article
+\note[id=n1]{Equal contributor} % note, connected to author
+\end{artnotes}
+
+%\end{fmbox}% comment this for two column layout
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% The Abstract begins here                 %%
+%%                                          %%
+%% Please refer to the Instructions for     %%
+%% authors on http://www.biomedcentral.com  %%
+%% and include the section headings         %%
+%% accordingly for your article type.       %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstractbox}
+
+\begin{abstract} % abstract
+\parttitle{Background} %if any
+The uncovering of genes linked to human diseases is a pressing challenge in molecular biology and precision medicine. This task is often hindered by the large number of candidate genes and by the heterogeneity of the available information. Computational methods for the prioritization of candidate genes can help to cope with these problems. In particular, kernel-based methods are a powerful resource for the integration of heterogeneous biological knowledge, however, their practical implementation is often precluded by their limited scalability.
+
+\parttitle{Results} %if any
+We propose Scuba, a scalable kernel-based method for gene prioritization. It implements a novel multiple kernel learning approach, based on a semi-supervised perspective and on the optimization of the margin distribution. Scuba is optimized to cope with strongly unbalanced settings where known disease genes are few and large scale predictions are required. Importantly, it is able to efficiently deal both with a large amount of candidate genes and with an arbitrary number of data sources. As a direct consequence of scalability, Scuba integrates also a new efficient strategy to select optimal kernel parameters for each data source. We performed cross-validation experiments and simulated a realistic usage setting, showing that Scuba outperforms a wide range of state-of-the-art methods. 
+
+\parttitle{Conclusions} 
+Scuba achieves state-of-the-art performance and has enhanced scalability compared to existing kernel-based approaches for genomic data. This method can be useful to prioritize candidate genes, particularly when their number is large or when input data is highly heterogeneous. The code is freely available at https://github.com/gzampieri/Scuba.
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% The keywords begin here                  %%
+%%                                          %%
+%% Put each keyword in separate \kwd{}.     %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{keyword}
+\kwd{gene prioritization}
+\kwd{genetic disease}
+\kwd{kernel methods}
+\kwd{semi-supervised learning}
+\end{keyword}
+
+% MSC classifications codes, if any
+%\begin{keyword}[class=AMS]
+%\kwd[Primary ]{}
+%\kwd{}
+%\kwd[; secondary ]{}
+%\end{keyword}
+
+\end{abstractbox}
+%
+\end{fmbox}% uncomment this for twcolumn layout
+
+\end{frontmatter}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% The Main Body begins here                %%
+%%                                          %%
+%% Please refer to the instructions for     %%
+%% authors on:                              %%
+%% http://www.biomedcentral.com/info/authors%%
+%% and include the section headings         %%
+%% accordingly for your article type.       %%
+%%                                          %%
+%% See the Results and Discussion section   %%
+%% for details on how to create sub-sections%%
+%%                                          %%
+%% use \cite{...} to cite references        %%
+%%  \cite{koon} and                         %%
+%%  \cite{oreg,khar,zvai,xjon,schn,pond}    %%
+%%  \nocite{smith,marg,hunn,advi,koha,mouse}%%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%% start of article main body
+% <put your article body there>
+
+%%%%%%%%%%%%%%%%
+%% Background %%
+%%
+\section*{Background}
+The identification of the genes underlying human diseases is a major goal in current molecular genetics research. Dramatic progresses have been made since the 1980s, when only a few DNA loci were known to be related to disease phenotypes. Nowadays opportunities for the diagnosis and the design of new therapies are progressively growing, thanks to several technological advances and the application of statistical or mathematical techniques. For instance, positional cloning has allowed to map a vast portion of known Mendelian diseases to their causative genes \cite{strachan,botstein}. However, despite the huge advances, much remains to be discovered. On December 21\textsuperscript{st} 2016, the Online Mendelian Inheritance in Man database (OMIM) registered 4,908 Mendelian phenotypes of known molecular basis and 1,483 Mendelian phenotypes of unknown molecular origin \cite{omim}. Moreover, 1,677 more phenotypes were suspected to be Mendelian. But it is among oligogenic and poligenic (and multifactorial) pathologies that the most remains to be elucidated: for the majority of them, only a few genetic loci are known \cite{strachan,botstein}.
+
+Independently of the type of disease, the search of causative genes usually concerns a large number of suspects. It is therefore necessary to recognise the most promising candidates to submit to additional investigations, as experimental procedures are often expensive and time consuming. Gene prioritization is the task of ordering genes from the most promising to the least. In traditional genotype-phenotype mapping approaches - as well as in genome-wide association studies - the first step is the identification of the genomic region(s) wherein the genes of interest lie. Once the candidate region is identified, the genes there residing are prioritized and finally analysed for the presence of possible causative mutations \cite{strachan}. More recently, in new generation sequencing studies this process is inverted as the first step is the identification of mutations, followed by prioritization and final validation \cite{salgado}. Prioritization criteria are usually based on functional relationships, co-expression and other clues linking genes together. In general, all of them follow the ``guilt-by-association" principle, i.e. disease genes are sought by looking for similarities to genes already associated to the pathology of interest \cite{strachan}.
+
+In the last few years, computational techniques have been developed to aid researchers in this task, applying both statistics and machine learning \cite{moreau}. Thanks to the advent of high-throughput technologies and new generation sequencing, a huge amount of data is in fact available for this kind of investigations. In particular, computational methods are essential for multi-\emph{omics} data integration, that has been recognised as a valuable strategy for understanding genotype-phenotype relationships \cite{ritchie}. In fact, clues are often embedded in different data sources and only their combination leads to the emergence of informative patterns. Furthermore, incompleteness and noise of the single sources can be overcome by inference across multiple levels of knowledge.
+
+Several popular algorithms for pattern analysis are based on \emph{kernels}, which are mathematical transformations that permit to estimate the similarity among items (in our case genes) taking into account complex data relations \cite{cristianini}. Importantly, kernels provide a universal encoding for any kind of knowledge representation, e.g. vectors, trees or graphs. When data integration is required, a multiple kernel learning (MKL) strategy allows a data-driven weighting/selection of meaningful information \cite{gonen}. The goal of MKL is indeed to learn optimal kernel combinations starting from a set of predefined kernels obtained by various data sources. Through MKL the issue of combining different data types is then solved by converting each dataset in a kernel matrix.
+
+Numerous MKL approaches have been proposed for the integration of genomic data \cite{wang,borgwardt} and some of them have been applied to gene prioritization \cite{debie,mkl1class,prodige,zakeri}. De Bie \emph{et al} formulated the problem as a one-class support vector machine (SVM) optimization task \cite{debie}, while Mordelet and Vert tackled it through a biased SVM in a \emph{positive-unlabelled} framework \cite{prodige,chapelle}. Recently, Zakeri \emph{et al} proposed an approach for learning non-linear log-euclidean kernel combinations, showing that it can more effectively detect complementary biological information compared to linear combinations-based approaches \cite{zakeri}. However, as highlighted in a recent work by Wang \emph{et al} \cite{wang}, current methods share two limitations: high computational costs - given by a (at least) quadratic complexity in the number of training examples - and the difficulty to predefine optimal kernel functions to be fed to the MKL machine.
+
+In this work we tackle these issues by proposing a novel scalable gene prioritization method based on a particular MKL approach \cite{easymkl}. By this approach, the optimal kernel is efficiently computed by maximizing the distance between positive and negative examples and optimizing the margin distribution \cite{komd}. This permits to obtain a high scalability relatively to the number of kernels, with a linear time complexity and a practically constant memory requirement. However, this approach assumes comparable label noise in the two example distributions, which does not reflect the case in consideration. Moreover, it does not scale with the number of training examples. Here we introduce a new algorithm, specifically adapted to a \emph{positive-unlabelled} unbalanced framework and we apply it to gene prioritization for the first time. The new learning algorithm has an additional gain in scalability that comes particularly useful when large numbers of genes have to be prioritized. This scalability allows us to transform each data source by multiple kernels and alleviates the issue of defining appropriate base kernels for each source. We called the proposed method Scuba (SCalable UnBAlanced gene prioritization).
+
+From an experimental point of view, here we focus on the integration of multiple gene networks whose edges symbolize functional relationships from heterogeneous sources and we employ two different test settings. In the first setting, we reproduce the procedure presented in a previous work by Chen \emph{et al} \cite{f3pc}, built upon cross-validation experiments \cite{devijver} on collections of known disease genes. This kind of evaluation is useful to compare different methods, but results may suffer from overestimation due to the reliance of many data repositories on medical literature or external data sources like OMIM \cite{omim}. Such dependence introduces a bias that may favour the retrieval of known disease genes. Thus, as a second validation we employ a more realistic setting, following a previous evaluation of gene prioritization tools by B\"ornigen \emph{et al} \cite{bornigen}. Here performance measures focus on the ability of predicting disease genes discovered subsequently to the last update of datasets.
+
+Overall, we compare Scuba with other 14 gene prioritization systems, including other 2 kernel-based methods and 8 web tools. We find that Scuba has competitive accuracy and in particular yields the best results in genome-wide prioritizations, showing its value for large-extent applications.
+
+
+
+\section*{Methods}
+In this section, we first introduce and formalize some concepts that will be used throughout this paper. Then, we present the proposed approach in detail.
+
+\textbf{Disease gene prioritization}: Let us consider a set of genes $\mathcal{G} = \lbrace g_1, g_2, \ldots, g_N \rbrace$ that represents either the global set of genes in the genome or a subset of it. Given another set $\mathcal{P} = \lbrace g_1, g_2, \ldots, g_m \rbrace, \, \mathcal{P} \subset \mathcal{G}$ containing genes known to be associated to a genetic disease, gene prioritization is the task that aims to rank genes in the set of candidates $\mathcal{U} = \mathcal{G} \setminus \mathcal{P}$ $\textcolor{red}{= \lbrace g_{m+1}, g_{m+2}, \ldots, g_N \rbrace}$ according to their likelihood of being related to that disease. Genes in $\mathcal{P}$ are labelled as \emph{positive} and represent a secure source of information. In contrast, candidate genes in $\mathcal{U}$ are technically \emph{unlabelled}, as we expect that some of them may be associated to the disease but we do not know which ones. Under this notation, this problem can be posed as a \emph{positive-unlabelled} (PU) learning task \cite{prodige,chapelle}.
+
+\textbf{Kernel}: \textit{Kernels} can be informally seen as similarity measures between pairs of data examples. Mathematically, such similarities are defined by inner products between vectors of corresponding examples in a Hilbert space $\mathcal{H}$, without the need of an explicit transformation to that space. A kernel function $k$ on $\mathcal{X} \times \mathcal{X} $ is then formally defined as:
+\begin{align*}
+	k: \mathcal{X} &\times \mathcal{X} \longrightarrow \mathcal{R}\\
+	k(x_{1}, x_{2}) &= \mathcal{<}\phi(x_{1}),\phi(x_{2})\mathcal{>} \, ,
+\end{align*}
+where $x_1, x_2 \in \mathcal{X}$, $\phi$ is a mapping $\phi:\mathcal{X} \longrightarrow \mathcal{H}$ and $k$ needs to be (1) symmetric, i.e. $k(x_1,x_2)=k(x_2,x_1)$ (2) semi-definite, i.e. the kernel matrix defined by $k_{ij} = k(x_i, x_j)$ has all eigenvalues $\geq 0$. Kernels can be used to define similarities starting from various data types, like graph nodes.
+
+\textbf{Graph node kernel}: A graph $G = (V,E)$ is a structure consisting of a node set $V=\{v_1,\dots,v_N\}$ and an edge set $E=\{(v_i,v_j) | v_i,v_j \in V)\}$. A graph node kernel aims at defining a similarity between any couples of nodes in a graph. A considerable number of graph node kernels have been introduced. The most popular is the diffusion kernel \cite{dk} which is based on the heat diffusion phenomenon. The key idea is to allow a given amount of {\em heat} on each node and let it {\em diffuse} through the edges. The similarity between two nodes $v_{i}, v_{j}$ is then measured as the amount of heat starting from $v_{i}$ and reaching $v_{j}$ over an infinite time interval. In the diffusion kernel the heat flow is proportional to the number of paths connecting two nodes, introducing a bias that penalizes peripheral nodes with respect to central ones. This problem is tackled by a modified version called Markov exponential diffusion kernel (MEDK) \cite{mrf} where a Markov matrix replaces the adjacency matrix.  Another kernel called Markov diffusion kernel (MDK) \cite{mdk}, exploits the notion of {\em diffusion distance}, a measure of similarity between patterns of heat diffusion. The regularized Laplacian kernel (RLK) \cite{rlk} implements instead a normalized version of the random walk with restart model and defines the node similarity as the number of paths connecting two nodes with different lengths.
+
+\subsection*{Scalable Multiple Kernel Learning: EasyMKL}
+We approach the problem of disease gene prioritization by employing a graph-based integration in which we use graph node kernels to extract gene information and encode it in the form of kernel matrices. However, a big challenge is how to effectively combine kernels when building predictive systems. This challenge can be solved by MKL. In the following, we first formalize the MKL problem and we then briefly introduce a scalable MKL algorithm named EasyMKL \cite{easymkl}.
+
+Given a set of pre-defined kernels, multiple kernel learning is a task that aims at finding an optimal kernel combination: 
+\begin{equation}
+\textbf{K} = \psi(\textbf{K}_1, \textbf{K}_2,\ldots, \textbf{K}_R) .
+\end{equation}
+Recently, many MKL methods have been proposed \cite{gonen,wang}. However, most of them require a long computation time and a high memory consumption, especially when the number of pre-defined kernels is high. To tackle these limitations, a scalable multiple kernel learning named EasyMKL has been previously proposed \cite{easymkl}. This method focuses on learning a linear combination of the input kernels with positive linear coefficients, namely
+\begin{equation}
+\textbf{K} =  \sum_{r=1}^{R} {\eta_r \textbf{K}_r}, \ \eta_r \geq 0 \, ,
+\end{equation}
+where $\eta=(\eta_{1}, \dots , \eta_{R})$ is the coefficient vector. \textcolor{red}{In a fully supervised binary task, EasyMKL computes the optimal kernel by maximizing the distance between positive and negative examples. The base learner is a kernel-based approach for the optimization of the margin distribution in binary classification or ranking \cite{komd}.}
+
+\textcolor{red}{In order to present its formulation, let us first define the probability distribution $\gamma \in \mathbb{R}^{N}_{+}$ representing weights assigned to training examples and living in the domain $\Gamma = \{ \gamma \in \mathbb{R}^{N}_{+} | \sum_{i \in \mathcal{P}} \gamma_{i}=1, \sum_{i \in \mathcal{N}} \gamma_{i}=1\}$, where $\mathcal{N}$ is the set of negative examples. From this definition, it follows that any element $\gamma \in \Gamma$ represents a pair of points in the input space: the first one is constrained to the convex hull of positive training examples and the second one to the convex hull of negative training examples. As stated above, EasyMKL maximizes the distance between positive and negative examples, optimizing the margin distribution at the same time. Under this notation, the task can be posed as a min-max problem over variables $\gamma$ and $\eta$ as follows:}
+\begin{equation}
+\max\limits_{\eta:\| \eta \|_2 \leq 1}\min\limits_{\gamma \in \Gamma}\, (1 - \lambda) \gamma^{\top}\\ \textbf{Y} (\sum_{r}{\eta_{r} \textbf{K}_{r}})\textbf{Y} \gamma + \lambda \, \gamma^{\top} \gamma \, .
+\end{equation}
+Here $\textbf{Y}$ is a diagonal matrix containing the vector of example labels\textcolor{red}{, +1 for positive and -1 for negative. Optimization of the first term alone leads to an optimal probability distribution $\gamma^{*}$ representing the two nearest points in the convex hulls of positive and negative examples, equally to a hard SVM task using a kernel $\textbf{K}$ \cite{komd}.} The second term represents a quadratic regularization over $\gamma$ whose objective solution is the squared distance between positive and negative centroids in the feature space. The regularization parameter $\lambda \in [0,1]$ permits to tune the objective to optimize, by balancing between the two critical values $\lambda=0$ and $\lambda=1$. \textcolor{red}{When $\lambda=0$ we obtain a pure hard SVM objective, while when $\lambda=1$ we get a centroid-based solution.}
+
+It can be shown that this problem has analytical solution in the $\eta$ variable, so that the previous expression can be reshaped into: 
+\begin{equation}\label{easymkl_quad_opt}
+\min \limits_{\gamma \in \Gamma} \, (1 - \lambda) \gamma^{\top} \textbf{Y} \textbf{K}^{s} \textbf{Y} \gamma + \lambda \, \gamma^{\top} \gamma \, ,
+\end{equation}
+where $\textbf{K}^{s}=\sum_{r}^{R}\textbf{K}_r$ is the sum of the pre-defined kernels. This minimization can be efficiently solved and only requires the sum of the kernels. The computation of the kernel summation can be easily implemented incrementally and only two matrices need to be stored in memory at a time. As shown in \cite{easymkl}, EasyMKL can deal with an arbitrary number of kernels using a fixed amount of memory and a linearly increasing computation time.
+
+Once the problem in Eq. \ref{easymkl_quad_opt} is solved, we \textcolor{red}{have an optimal distribution $\gamma^{*}$ and} we are able to obtain the optimal kernel weights $\eta_r^*$ by using the formula:
+\begin{equation}\label{eta}
+	\eta_r^* = \frac{\gamma^* \textbf{Y} \textbf{K}_r \textbf{Y} \gamma^*}{\sum_{r=1}^R \gamma^* \textbf{Y} \textbf{K}_r \textbf{Y} \gamma^*}.
+\end{equation}
+The optimal kernel is thus evaluated as $ \textbf{K}^{*} = \sum_{r}^R \eta_r^* \textbf{K}_r$. Finally, by replacing $\textbf{K}^{s}$ with $\textbf{K}^{*}$ in Eq. \ref{easymkl_quad_opt}, we can get the final probability distribution $\gamma^{*}$.
+
+\subsection*{Unbalanced Multiple Kernel Learning: Scuba}
+In the previous section we introduced EasyMKL, a scalable, efficient kernel integration approach. However, the gene prioritization task has two additional issues that complicate the work. First, our learning setting is not fully supervised: an assumption is that there are some positive examples hidden among the negatives and we want to retrieve them. Thus, we have the certainty about positive examples but not about negative ones. Second, the number of known disease genes is typically much smaller than the number of candidates, making the problem strongly unbalanced. For these reasons, inspired by a previous work \cite{pyros} we propose a new MKL algorithm based on EasyMKL that not only inherits its scalability, but also efficiently deals with an unbalanced setting.
+
+In order to clearly present our method, we first need to highlight the different contributions given by positive and unlabelled examples. Therefore, we define $\textbf{K}^{+}$, $\textbf{K}^{-}$ and $\textbf{K}^{+-}$ the sub-matrices of $\textbf{K}^s$ pertaining to positive-positive, unlabelled-unlabelled and positive-unlabelled example pairs, respectively. Schematically, we have:
+\begin{equation*}
+\textbf{K}^{s} = \left( \begin{array}{cc}
+\textbf{K}^{+} & \textbf{K}^{+-}\\
+\textbf{K}^{-+} & \textbf{K}^{-}\\
+\end{array} \right) \, .
+\end{equation*}
+being $\textbf{K}^{-+}$ the transpose of $\textbf{K}^{+-}$. In other words, $\textbf{K}^{+}$ contains similarities among positive examples \textcolor{red}{$g_i \in \mathcal{P}, i = 1, \dots m$}, $\textbf{K}^{-}$ contains similarities among unlabelled examples \textcolor{red}{$g_j \in \mathcal{U}, j = m+1, \dots N$} and $\textbf{K}^{+-}$ includes similarities between positive-unlabelled example pairs. In the same way, we define $\gamma_{+}$ and $\gamma_{-}$ as the probability vectors associated to positive and unlabelled examples, respectively.\\
+Under this change of variables, we reformulate the problem as:
+\begin{multline*}
+	\min \limits_{\gamma \in \Gamma} \, \gamma_{+}^{\top} \textbf{K}^{+} \gamma_{+} - 2 \,\gamma_{+}^{\top} \textbf{K}^{+-} \gamma_{-} +  \gamma_{-}^{\top} \textbf{K}^{-} \gamma_{-} \\+ \lambda_{+} \gamma_{+}^{\top} \gamma_{+} + \lambda_{-} \gamma_{-}^{\top} \gamma_{-} \, .
+\end{multline*}
+In this new formulation, the original EasyMKL problem is obtained by setting $\lambda_+ = \lambda_- = \frac{\lambda}{1-\lambda}$. However, due to the unbalanced PU nature of the problem, we are interested in using two different regularizations among positive and unlabelled examples. In our case, we decide to fix \emph{a priori} the regularization parameter  $\lambda_{-} = +\infty$, corresponding to fixing $\lambda=1$ over unlabelled examples only. Then, the solution of part of the objective function is defined by the uniform distribution $\gamma_{-} = (\frac{1}{n},\frac{1}{n},\dots\frac{1}{n}) \equiv u$, where \textcolor{red}{$n=N-m$} is the number of unlabelled examples.\\
+We inject this analytic solution of part of the problem in our objective function as
+\begin{multline*}
+	\min \limits_{\gamma \in \Gamma^{+}} \, \gamma_{+}^{\top} \textbf{K}^{+} \gamma_{+} - 2 \,\gamma_{+}^{\top} \textbf{K}^{+-} u +  u^{\top} \textbf{K}^{-} u \\+ \lambda_{+} \gamma_{+}^{\top} \gamma_{+} + \lambda_{-} u^{\top}u \, ,
+\end{multline*}
+where $\Gamma^{+} = \lbrace \gamma \in \mathcal{R}_+^m | \textcolor{red}{\sum_{i = 1}^{m} \gamma_i = 1, \gamma_j = 1/n \ \forall \, j = m+1, \dots N} \rbrace$ is the probability distribution domain where the distributions over the unlabelled examples correspond to the uniform distribution. It is trivial that $u^{\top} \textbf{K}^{-} u$ and $\lambda_{-} u^{\top}u$ are independent from the $\gamma_{+}$ variable. Then, they can be removed from the objective function obtaining
+\begin{equation}\label{scuba_opt}
+	\min \limits_{\gamma \in \Gamma^{+}} \, \gamma_{+}^{\top} \textbf{K}^{+} \gamma_{+} - 2 \, \gamma_{+}^{\top} \textbf{K}^{+-} u + \lambda_{+} \gamma_{+}^{\top} \gamma_{+} \, .
+\end{equation}
+In this expression, we only need to consider the entries of the kernel $\textbf{K}^{s}$ concerning the positive set, avoiding all the entries with indices in the unlabelled set. The complexity becomes quadratic in the number of positive examples $m$, which is always much smaller than the number of examples to prioritize. Moreover, this algorithm still depends linearly on the number of kernels $R$ and the overall time complexity is then $\mathcal{O}(m^2 \cdot R)$. In this way, we greatly simplify the optimization problem, while being able to take into account the diverse amount of noise present in positive and unlabelled example sets.\\
+Like in the previous section, after solving the problem of Eq. \ref{scuba_opt} we use Eq. \ref{eta} to compute the optimal kernel weights. Next, we solve again the Scuba optimization problem to get the final optimal probability distribution $\gamma^{*}$. The likelihood of association to the disease for every gene is given by the vector of scores $s$ defined as
+\begin{equation}\label{score_function}
+	s = \textbf{K}^{*} \textbf{Y} \gamma^{*} \, ,
+\end{equation}
+\textcolor{blue}{where $\textbf{K}^{*}$ is the final kernel matrix, computed by $\textbf{K}^{*} = \sum_{r}^R \eta_r^* \textbf{K}_r$. We apply the formula \ref{score_function} to compute scores for the test genes as:
+\begin{equation}\label{score_function}
+	s = \textbf{K}_{}^{t*} \textbf{Y} \gamma^{*} \, ,
+\end{equation}
+where $\textbf{K}_{}^{t*}$ is the final test kernel matrix, obtained by taking the weighted sum over all test kernel matrices:
+\begin{center}
+$\textbf{K}_{}^{t*} = \sum_{r}^{} \eta_{r}^{*} \textbf{K}_{r}^{t}$,
+\end{center}
+$\textbf{K}_{}^{t*}, \textbf{K}_{r}^{t}$s are matrices of size $(p,q)$ with $p$, $q$ are the number of test genes and training genes, respectively. More particularly, a score for $s_i$ of the test gene $g_i$ is computed as: 
+\begin{center}
+$s_i = \sum_{j}^{} y_j \gamma_{j}^* \textbf{K}_{ij}^{t*}$.
+\end{center}
+In words, $s_i$ is the weighted sum over the weighted similarities between the test gene $g_i$ and all genes in the training set $g_j$s. Once we get the scores for test genes, candidate genes are then prioritized based on the score values.
+}
+\subsection*{Base kernels selection}\label{basekernels}
+We leverage the scalability achieved by the new algorithm to ease the optimization of base kernels. As a general practical case, we start from a set of data sources $\mathcal{S} = \lbrace S_1, S_2,\ldots, S_L \rbrace$ representing various levels of biological information. \textcolor{blue}{We first construct a set of corresponding graphs derived from the set of data sources $S$ to obtain a set of graphs $G = \lbrace G_1, G_2, \ldots, G_L\rbrace$. We then apply different kernels with different parameter values on each $G_i \in \mathcal{G}$ by using kernel formulas. As a consequence, for each source $G_i$, we get a set of kernel matrices $\mathcal{K}_i = \lbrace K_{i1}, K_{i2},\ldots, K_{iH} \rbrace$}. By collecting all kernels from all $\mathcal{K}_i$, we achieve a final kernel matrix set $\mathcal{K}$ comprising $L\cdot H$ matrices. Next, all matrices in $\mathcal{K}$ and gene sets $\mathcal{P}$ and $\mathcal{U}$ are fed into Scuba to obtain the optimal kernel $K$. In this way, we directly use MKL to perform an automatic selection of optimal kernel parameters. The final kernel and the disease gene set $\mathcal{P}$ are then employed to train a model, which is used to generate a score list for candidate genes in $\mathcal{U}$ through Eq. \ref{score_function}. The score assigned to a candidate expresses the likelihood of it being associated to the disease.  
+
+\subsection*{Experimental workflow}
+We employ Scuba to prioritize candidate genes starting from multiple gene networks, obtained by various data sources. We transform every network by means of multiple graph node kernels as explained in the previous section. In the cross-validation experimental setting we use MEDK to estimate the similarity among genes, just like in \cite{f3pc}. In the unbiased setting we use MDK and RLK, selected by validating on training sets.
+
+In both settings, we fix the number of kernel matrices per data source $H=3$ and learn the regularization parameter $\lambda_{+}$ by employing k-fold cross validation on the training set, using the the grid of values $\lbrace 0, \ 0.1,\ 0.2,\ \ldots, 1 \rbrace$. \textcolor{blue}{Kernel parameter values are set as follows: $\lbrace 0.01,\ 0.04,\ 0.07 \rbrace$ for MEDK, suggested in \cite{dir} and used in \cite{mrf}, $\lbrace 2,\ 4,\ 6 \rbrace$ for MDK and $\lbrace 1,\ 10,\ 100 \rbrace$ for RLK, suggested in \cite{mdk}.}
+
+\subsection*{Data sources}
+We employ several biological data sources to test Scuba, presented in the following.
+\begin{itemize}
+	\item \textbf{Human Protein Reference Database} (\textbf{HPRD}) \cite{hprd}. The HPRD resource provides protein interaction data which we implement as an unweighted graph, where genes are linked if their corresponding proteins interact.
+	\item \textbf{BioGPS} \cite{biogps}. It contains expression profiles for 79 human tissues, which are measured by using the Affymetrix U133A array. Gene co-expression, defined by pairwise Pearson correlation coefficients (PCC), is used to build an unweighted graph. A pair of genes are linked by an edge if the PCC value is larger than 0.5.
+	\item \textbf{Pathways}. Pathway datasets are obtained from the database of KEGG \cite{kegg}, Reactome \cite{reactome}, PharmGKB \cite{pharmgkb} and PID \cite{pid}, which contain 280, 1469, 99 and 2679 pathways, respectively. A pathway co-participation network is constructed by connecting genes that co-participate in any pathway.
+	\item \textbf{String} \cite{string}. The String database gathers protein information covering seven levels of evidence: genomic proximity in procaryotes, fused genes, co-occurrence in organisms, co-expression, experimentally validated physical interactions, external databases and text mining. Overall, these aspects focus on functional relationships that can be seen as edges of a weighted graph, where the weight is given by the reliability of that relationship. To perform the unbiased evaluation we employed the version 8.2 of String, from which we extracted functional links among 17078 human genes.
+\end{itemize}
+
+The first three datasets were obtained directly from Chen \emph{et al} \cite{f3pc}, already preprocessed in such a way that all of them represent exactly the same 7311 genes. We employed this data without any further processing.
+
+Known gene-disease associations employed in the cross-validation experimental setting were taken from a work of Goh \emph{et al} which defines classes of related diseases \cite{goh}. Training and candidate gene sets used in the second set of experiments (section \emph{Unbiased evaluation}) were obtained from the supplementary material of the unbiased evaluation of gene prioritization tools performed by B\"ornigen \emph{et al} \cite{bornigen}. Finally, gene-disease associations from the Human Phenotype Ontology were used, belonging to builds 29 and 117 \cite{hpo}.
+
+\subsection*{Other kernel-based gene prioritization methods}
+We compare Scuba with other two kernel methods for gene prioritization. The first one implements a one class approach to MKL, slightly modifying the formulation of the method of De Bie \emph{et al} \cite{debie}. In the corresponding work \cite{mkl1class}, authors show that this newer approach reaches higher performances in ranking. In the following, we refer to it as MKL1class. The second method we consider is ProDiGe, a PU approach that combines MKL and multitask learning \cite{prodige}. We focus on its first version without multitask learning, as our purpose is to study performances in terms of the MKL framework. We ran ProDiGe using the default parameters indicated in the corresponding paper: number of bagging iterations $B=30$ and regularization parameter $C=1$. In the same way, we set the regularization parameter $\nu=0.5$ for MKL1class.
+
+
+
+\section*{Results}
+In this section, we describe the tests made to evaluate our proposed method, which follow two different experimental procedures. In the first setting, we aim at estimating Scuba performance in a standard validation framework. In the second setting we evaluate it by an unbiased approach, making a comparison with prioritization tools available on the web and with two state-of-the-art kernel-based methods.
+
+\subsection*{Cross-validation}
+As a first evaluation of Scuba, we followed the experimental protocol used by Chen \emph{et al} to test predictive performance of other prioritization methods \cite{f3pc}. In this setting, we employed three data sets: BioGPS, HPRD and Pathways, which we borrowed from the authors of the work. To perform the experiments, we employed known gene-disease associations from OMIM, grouped into 20 classes on the basis of disease relatedness by Goh \emph{et al} \cite{goh}. Among those classes we selected the 12 with at least 30 confirmed genes. We then built a training set consisting of a positive set \textcolor{red}{$\mathcal{P}$ and an unlabelled set $\mathcal{U}$} for each of them. \textcolor{red}{$\mathcal{P}$} contains all its disease gene members. \textcolor{red}{$\mathcal{U}$} is constructed by randomly picking genes from known disease genes such that $\vert \textcolor{red}{\mathcal{U}} \vert = \frac{1}{2} \vert \textcolor{red}{\mathcal{P}} \vert$. The unknown genes relate to at least one disease class, but do not relate to the current class. We chose the genes in \textcolor{red}{$\mathcal{U}$} from the other disease genes because we assume that they were less likely to be associated to the considered class. In fact, disease genes are generally more studied and a potential association has more chances to have already been identified.
+
+After that, leave-one-out cross validation was used to evaluate the performance of the algorithm. Iteratively, every gene in the training set was selected to be the test gene and the remaining genes in \textcolor{red}{$\mathcal{P}$} and \textcolor{red}{$\mathcal{U}$} were used to train the model. Once the model was trained, a score list for the test gene and the candidate genes \textcolor{red}{in $\mathcal{U}$} was computed. Then, we computed a decision score for each test gene representing the percentage of candidate genes ranked lower than it. We collected all decision scores for every gene in all disease classes to form a global decision score list. The performance of Scuba was measured by calculating the area under the curve (AUC) in the receiver-operating-characteristic plot obtained from the decision score list. The AUC expresses the probability that a randomly chosen disease gene is ranked above a randomly picked non-disease gene for any disease class.
+
+Table \ref{table: MRF-comparison} illustrates the performance of different techniques in this experimental setting reported by Chen \emph{et al} \cite{f3pc}, and the performance of our proposed method. In the second column we show the significance of the difference between reported AUCs and Scuba AUC, assessed by means of separate pairwise comparisons \cite{hanley}. Scuba performs significantly better than the other methods, getting an AUC around 3.6\% greater than the second best performing technique, F3PC.
+
+\subsection*{Unbiased evaluation}\label{unbiased}
+Although the previous evaluation is useful to compare Scuba with other methods, predictive performance in cross-validation experiments may be inflated compared to real applications. Indeed, the retrieval of known disease genes can be facilitated by various means. One mean is the crosstalk between data repositories: for example, KEGG \cite{kegg} draws its information also from medical literature. Moreover, often the discovery of the link between a gene and a disease coincides with the discovery of a functional annotation or of a molecular interaction. In practice, instead, researchers are interested in novel associations, which in most cases are harder to find due to a lack of information around them.
+
+In order to achieve a thorough evaluation of Scuba, we tested it in a more realistic setting, following the work of B\"{o}rnigen \emph{et al} \cite{bornigen}. In this study, eight gene prioritization web tools were benchmarked as follows. Newly discovered gene-disease associations were collected over a timespan of six months, gathering \textcolor{red}{42 test genes associated to a range of disorders}. As soon as a new association was discovered, \textcolor{red}{each web tool was queried with a disorder-specific set of positive genes $\mathcal{P}$ to prioritize a set of candidates $\mathcal{U}$ containing the corresponding test gene (or to prioritize the whole genome where possible). Rank positions of the 42 test genes were ultimately} used to assess the ability of the tools to successfully prioritize disease genes. The idea behind this procedure is to anticipate the integration of the associations in the data sources and so avoid biased predictions.
+
+In order to test Scuba in this setting, we backdated our data to a time prior to May 15, 2010 by employing String v8.2 data \cite{string}. \textcolor{red}{After that, we recovered positive sets and test genes from the original publication and we followed its experimental protocol as follows \cite{bornigen}. We performed prioritizations for each test gene in two distinct cases: genome-wide and candidate set-based prioritizations. In a genome-wide prioritization all genes in the String dataset - except those in $\mathcal{P}$ - belong to $\mathcal{U}$ and were prioritized. In candidate set-based tests, the sets of candidates $\mathcal{U}$ were constructed by considering all genes with Ensembl \cite{ensembl} gene identifier within the chromosomal regions around the test genes, in order to get on average 100 candidates for each trial.} In both cases, we normalized the ranking positions over the total number of considered genes in order to get median, mean and standard deviation of the normalized ranks for test genes. We also computed the true positive rate (TPR) relatively to some representative thresholds (5\%, 10\% and 30\% of the ranking) and the AUC obtained by averaging over the 42 prioritizations.
+
+Along with Scuba, we evaluated in this setting also MKL1class \cite{mkl1class} and ProDiGe \cite{prodige}, two state-of-the-art kernel based gene prioritization methods.  In Table \ref{unbiased1} it is possible to see performances for all three methods. The significance of rank median differences between Scuba and competing methods was assessed by Wilcoxon signed rank tests, one for each comparison. At a significance threshold of 0.05, Scuba achieves significantly higher performances in genome-wide tasks compared to both baselines. In the candidate set-based setting, it performs significantly better than ProDiGe and better, although not significantly, than MKL1class. These differences can be visually appreciated in Figure \ref{scatter}, where we compare the rank distributions \textcolor{red}{of test genes} obtained by the three methods. Scuba and MKL1class present moderate rank differences, particularly in the central region of the ranks. On the other hand, differences between Scuba and ProDiGe are smaller (Pearson $r=0.98$ in both cases) and almost all in favour of Scuba.
+
+In Table \ref{unbiased2} we show results for Scuba compared to the results obtained in the work of B\"{o}rnigen \emph{et al}, pertaining to eight prioritization systems \cite{bornigen}. In genome-wide predictions, Scuba dominates over the other tools. On predictions over smaller candidate sets, it is still competitive although best results are achieved by GeneDistiller \cite{genedistiller}, Endeavour \cite{endeavour} and ToppGene \cite{toppgene}. It is important to underline that in this case considered tools rely on different data sources, so we are comparing different prioritization systems rather different algorithms. Furthermore, tools are in some cases unable to provide an answer to a given task, depending on the underlying data sources (for more details see the original work \cite{bornigen}). We report the fraction of prioritizations on which tools are actually evaluated as response rate. This table has the purpose of showing the potentiality of Scuba relatively to what is easily accessible by non-bioinformaticians. However, since we used the String data for instance Scuba is directly comparable with Pinta \cite{bornigen, pinta}.
+
+Next, we expanded this validation by employing gene-disease annotations derived from the Human Phenotype Ontology (HPO) \cite{hpo}. This resource gathers information from several databases and makes available its monthly updates, permitting to trace the annotations history. We downloaded the HPO build 29 - dating March 2013 - and build 117 of February 2017. We compared the two annotations corresponding to these versions of HPO and extracted the gene-disease associations that were added in this time gap. We concentrated on the multifactorial diseases covered in the previous analysis, that could possibly have some previously undiscovered associations. We thus analyzed how the obtained genes are ranked in genome-wide prioritizations of the previous analysis, applying the same performance measures as before. The outcome is an analogous evaluation, but this time target genes are those extracted from HPO.
+ 
+In Table \ref{hpo} results for Scuba, MKL1class and ProDiGe are shown. We can observe a slightly different trend compared to previous results, with Scuba and ProDiGe having very close performance and MKL1class being significantly worse than Scuba. As a confirmation, in Figure \ref{scatter} we can see that there is no clear difference between \textcolor{red}{test gene rank distributions for Scuba and ProDiGe}. Instead, MKL1class ranks several test genes neatly lower compared to Scuba, with the associated Pearson correlation coefficient dropping to $r=0.85$.
+
+
+
+
+\section*{Discussion}
+Gene prioritization is progressively becoming essential in molecular biology studies. In fact, we are assisting to a continuous proliferation of a variety of \emph{omic} data brought by technological advances. In the near future it is then likely that more heterogeneous knowledge will have to be combined. Moreover, the classes of biological agents to be prioritized are going to enlarge. For instance, we are only beginning to understand the complex regulation machinery involving non-coding RNA and epigenetic agents. It is estimated that around 90.000 human long non coding genes exist, whose functional implications are progressively emerging \cite{noncode}. Facing this challenge, the development of novel methods is still strongly needed in order to enhance predictive power and efficiency. 
+
+Compared to the considered benchmark kernel methods - MKL1class and ProDiGe - Scuba has some important advantages. ProDiGe is one of the first proposed kernel-based PU learning method for gene prioritization \cite{prodige}. It implements a PU learning strategy based on a biased SVM, which over-weights positive examples during training. In order to reach scalability to large datasets, it leverages a bagging procedure. Like ProDiGe, Scuba implements a learning strategy based on a binary classification set up, but from a different perspective. In a PU problem, the information on positive labels is assumed secure, while the information on negative labels is not. In terms of margin optimization, this translates in unbalanced entropy on the probability distributions associated to the two sets of training examples. It is then required to regularize more on the unlabelled class - having higher entropy - and in the limit of maximum uncertainty we get the uniform distribution.
+
+MKL1class implements another effective approach for data integration, namely single class learning. This means that the model is obtained solely based on the distribution of known disease genes, disregarding unlabelled ones. Scuba has enhanced scalability compared to MKL1class, as it involves the optimization of the 1-norm of the margin vector from the different kernels. In contrast, MKL1class optimizes its 2-norm, which is more computationally demanding. Importantly, another distinctive feature of Scuba is a time complexity dependent on the number of positive examples and not on the number of total examples. As a consequence, Scuba can exploit the information on the whole data distribution and at the same time scale to large datasets without the need of sub-sampling the examples. This may be of great advantage as typically disease genes are orders of magnitude less numerous than the candidates.
+
+Results from two different evaluation settings show that our proposed method Scuba outperforms many existing methods, particularly in genome-wide analyses. Compared to the two considered existing kernel-based methods, Scuba performances (considering AUC) are always higher, and often significantly higher. Moreover, Scuba has two main levels of scalability that make it particularly suitable for gene prioritization:
+\begin{itemize}
+	\item \textbf{Scalability on number of kernels}: Scuba is able to deal with a large number of kernels defined on different data sources. As a consequence, it can be useful to get a more unified view of the problem and to build more powerful predicting models.
+	
+	\item \textbf{Scalability on number of training examples}: In typical gene prioritization problems, the number of known disease genes is much smaller than the number of candidates. Scuba is designed to efficiently deal with unbalanced settings and at the same time take advantage of the whole candidates distribution.
+\end{itemize}
+
+Altogether, our results show that Scuba is a valuable tool to achieve efficient prioritizations, especially in large-scale investigations. A detailed overview on the validation results for single diseases is available in Supplementary Tables 1, 3, 4.
+
+Finally, as it is visible in Supplementary Table 2, performance with multiple kernels might be close to those with single kernels. Nevertheless, feeding multiple kernels into Scuba alleviates the issue of choosing appropriate kernels for each data source, as implemented in our work. Importantly, this strategy can also provide multiple views on the same data and possibly increase performance. Nevertheless caution must be paid since the more kernels are combined and the more parameters have to be learned, thus increasing the risk of over-fitting. We advice then to moderate the number of kernel matrices generated from each data source. 
+
+
+
+
+\section*{Conclusion}
+In this work, we propose a novel computational kernel-based method to guide the identification of novel disease genes. Our method takes advantage of complementary biological knowledge by combining heterogeneous data sources. Every source can be transformed by appropriate kernel functions in order to take full advantage of its information. Our original algorithm is scalable relatively to the size of input data, number of kernel transformations employed and number of training examples. Experimental results support the thesis that Scuba is an effective approach and can be applied in various disease domains.
+
+Scuba only requires a collection of input genes and optionally a set of candidate genes. The simple requirements make it applicable to a wide range of laboratory investigations. Furthermore, Scuba can be potentially employed also in other prioritization problems, as long as a PU approach and the integration of heterogeneous biological knowledge are needed.
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% Backmatter begins here                   %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{backmatter}
+
+\section*{List of abbreviations}
+\textbf{OMIM:} Online Mendelian Inheritance in Man database\\
+\textbf{MKL:} Multiple Kernel Learning\\
+\textbf{SVM:} Support Vector Machine\\
+\textbf{Scuba:} SCalable UnBAlanced gene prioritization\\
+\textbf{PU learning:} Positive-Unlabelled learning\\
+\textbf{MEDK:} Markov Exponential Diffusion Kernel\\
+\textbf{MDK:} Markov Diffusion Kernel\\
+\textbf{RLK:} Regularized Laplacian Kernel\\
+\textbf{EasyMKL:} Easy Multiple Kernel Learning\\
+\textbf{HPRD:} Human Protein Reference Database\\
+\textbf{PCC:} Pearson Correlation Coefficient\\
+\textbf{AUC:} Area Under the receiver-operating-characteristic Curve\\
+\textbf{TPR:} True Positive Rate\\
+\textbf{DIR:} Data Integration Rank\\
+\textbf{MRF:} Markov Random Field\\
+\textbf{F3PC:} a logistic regression-based algorithm\\
+\textbf{HPO:} Human Phenotype Ontology
+
+
+\section*{Declarations}
+
+\section*{Ethics approval and consent to participate}
+  Not applicable.
+
+\section*{Consent for publication}
+  Not applicable.
+
+\section*{Availability of data and material}
+  The python code of the proposed algorithm is available in the GitHub repository at https://github.com/gzampieri/Scuba. The networks used in cross-validation experiments were borrowed by the supporting data of \cite{f3pc}. The String dataset is available at http://string-db.org/. Disease gene information was taken from the supplementary material of \cite{bornigen} and \cite{goh} and from the Human Phenotype Ontology archive at https://github.com/Human-Phenotype-Ontology/HPO-archive.
+
+\section*{Competing interests}
+  The authors declare that they have no competing interests.
+
+\section*{Funding}
+  This work was supported by the University of Padova, Strategic Project BIOINFOGEN.
+
+\section*{Author's contributions}
+  All authors contributed to the design of the study. GZ and DTV equally contributed to the implementation of the method, to performing the experiments and to writing the manuscript. GV and AS supervised the work. All authors read and approved the final manuscript.
+
+\section*{Acknowledgements}
+  Not applicable.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                  The Bibliography                       %%
+%%                                                         %%
+%%  Bmc_mathpys.bst  will be used to                       %%
+%%  create a .BBL file for submission.                     %%
+%%  After submission of the .TEX file,                     %%
+%%  you will be prompted to submit your .BBL file.         %%
+%%                                                         %%
+%%                                                         %%
+%%  Note that the displayed Bibliography will not          %%
+%%  necessarily be rendered by Latex exactly as specified  %%
+%%  in the online Instructions for Authors.                %%
+%%                                                         %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% if your bibliography is in bibtex format, use those commands:
+\bibliographystyle{bmc-mathphys} % Style BST file (bmc-mathphys, vancouver, spbasic).
+\bibliography{Scuba_bmc_revision_2}      % Bibliography file (usually '*.bib' )
+% for author-year bibliography (bmc-mathphys or spbasic)
+% a) write to bib file (bmc-mathphys only)
+% @settings{label, options="nameyear"}
+% b) uncomment next line
+%\nocite{label}
+
+% or include bibliography directly:
+% \begin{thebibliography}
+% \bibitem{b1}
+% \end{thebibliography}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                               %%
+%% Figures                       %%
+%%                               %%
+%% NB: this is for captions and  %%
+%% Titles. All graphics must be  %%
+%% submitted separately and NOT  %%
+%% included in the Tex document  %%
+%%                               %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%
+%% Do not use \listoffigures as most will included as separate files
+
+\section*{Figures}
+
+\begin{figure}[h!]
+\caption{\csentence{Comparison of normalized ranks predicted by Scuba and competing kernel methods.}
+	Normalized \textcolor{red}{test gene rank distributions} predicted by Scuba, MKL1class and ProDiGe for test genes in \textbf{(a)} genome-wide prioritizations in the unbiased evaluation of Table \ref{unbiased1} - \textbf{(b)} candidate set-based prioritizations in the unbiased evaluation of Table \ref{unbiased1} - \textbf{(c)} genome-wide prioritizations in the expanded unbiased evaluation of Table \ref{hpo}. In all cases, each point represents a test gene and lower values on the axes indicate better predictions. Genes lying on a diagonal have the same rank according to both methods considered on a plot. The further a gene lies above (below) a diagonal and the better it was ranked by Scuba (MKL1class/ProDiGe) compared to MKL1class/ProDiGe (Scuba). In each plot we show the Pearson correlation coefficient $r$ between the \textcolor{red}{test gene rank distributions} and its associated p-value.\label{scatter}}
+\end{figure}
+
+%\begin{figure}[h!]
+%  \caption{\csentence{Sample figure title.}
+%      Figure legend text.}
+%      \end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                               %%
+%% Tables                        %%
+%%                               %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Use of \listoftables is discouraged.
+%%
+\section*{Tables}
+\begin{table*}[h!]
+	\caption{The performance of different techniques in the experimental setting of Chen \emph{et al} \cite{f3pc} expressed in terms of AUC. Except for our proposed method Scuba, these results were taken from that work. The p-values indicate significance of the pairwise AUC differences with respect to Scuba AUC \cite{hanley}. Asterisks indicate significance of the test (p-value $<$ 0.05).\label{table: MRF-comparison}}
+	\begin{tabular}{c c c}
+		\hline\noalign{\vskip 1mm}
+		Method & AUC & p-value \\
+		\noalign{\vskip 1mm}\hline\noalign{\vskip 1mm}
+		Scuba & \textbf{0.876} & - \\
+		F3PC \cite{f3pc} & 0.830 & 1.39$\,\cdot$10$^{-4}$ * \\
+		MRF \cite{mrf} & 0.731 & $<$10$^{-6}$ * \\
+		DIR \cite{dir} & 0.716 & $<$10$^{-6}$ * \\
+		GeneWanderer \cite{genewanderer} & 0.711 & $<$10$^{-6}$ * \\
+		\noalign{\vskip 1mm}\hline
+	\end{tabular}
+\end{table*}
+
+\begin{table*}[h!]
+	\caption{Performances of Scuba, MKL1class and ProDiGe in the unbiased setting of B\"{o}rnigen \emph{et al} \cite{bornigen}. Values refer to predictions on all the 42 gene-disease associations. Rank difference p-values were obtained using Wilcoxon signed rank tests comparing separately Scuba/MKL1class and Scuba/ProDiGe ranks differences. Asterisks indicate significance of the tests at a threshold of 0.05.\label{unbiased1}}
+	\begin{tabular}{c c c c c c c c}	
+		\hline\noalign{\vskip 1mm}
+		Tool/Method & Rank & Rank & TPR in top & TPR in top & TPR in top & AUC & Rank difference \\
+		& median & average & 5\% (\%) & 10\% (\%) & 30\% (\%) & & p-value \\
+		\noalign{\vskip 1mm}\hline\noalign{\vskip 1mm}
+		\multicolumn{5}{l}{Genome-wide prioritization methods}\\[1mm]
+		Scuba & \textbf{10.55} & \textbf{20.48}$\pm$23.53 & \textbf{33.3} & \textbf{47.6} & \textbf{78.6} & \textbf{0.80} & - \\
+		MKL1class \cite{mkl1class} & 13.30 & 23.42$\pm$23.23 & 21.4 & \textbf{47.6} & 69.0 & 0.77 & 2.5$\,\cdot$10$^{-2}$ * \\
+		ProDiGe \cite{prodige} & 11.73 & 24.45$\pm$27.33 & 31.0 & 45.2 & 71.4 & 0.76 & 3.0$\,\cdot$10$^{-7}$ * \\
+		\noalign{\vskip 1mm}\hline\noalign{\vskip 1mm}
+		\multicolumn{5}{l}{Candidate set-based prioritization methods}\\[1mm]
+		Scuba & \textbf{12.95} & \textbf{23.32}$\pm$25.46 & \textbf{28.6} & \textbf{45.2} & \textbf{73.8} & \textbf{0.78} & -  \\
+		MKL1class \cite{mkl1class} & 15.07 & 25.63$\pm$24.73 & 23.8 & 40.5 & 61.9 & 0.76 & 9.7$\,\cdot$10$^{-2}$ \\
+		ProDiGe \cite{prodige} & 14.41 & 26.39$\pm$29.09 & 26.2 & 40.5 & 71.4 & 0.75 & 2.7$\,\cdot$10$^{-3}$ * \\
+		\noalign{\vskip 1mm}\hline
+	\end{tabular}
+\end{table*}
+
+\begin{table*}[h!]
+	\caption{Performances of Scuba and of some gene prioritization web tools in the unbiased setting of B\"{o}rnigen \emph{et al} \cite{bornigen}. Response rate is the percentage of gene-disease associations considered by each tool. Values for Suspects were computed on the first 27 associations only (highlighted by $^{a}$).\label{unbiased2}}
+	\begin{tabular}{c c c c c c c c}	
+		\hline\noalign{\vskip 1mm}
+		Tool/Method & Response & Rank & Rank & TPR in top & TPR in top & TPR in top & AUC\\
+		& rate (\%) & median & average & 5\% (\%) & 10\% (\%) & 30\% (\%) & \\
+		\noalign{\vskip 1mm}\hline\noalign{\vskip 1mm}
+		\multicolumn{5}{l}{Genome-wide prioritization methods}\\[1mm]
+		 Scuba & 100 & \textbf{10.55} & \textbf{20.48}$\pm$23.53 & \textbf{33.3} & \textbf{47.6} & \textbf{78.6} & \textbf{0.80}\\
+		Candid \cite{candid} & 100 & 18.10 & 27.35$\pm$24.62 & 21.4 & 33.3 & 64.3 & 0.73\\
+		Endeavour \cite{endeavour} & 100 & 15.49 & 21.47$\pm$22.37 & 28.6 & 38.1 & 71.4 & 0.79\\
+		Pinta \cite{pinta} & 100 & 19.03 & 23.52$\pm$23.58 & 26.2 & 31.0 & 71.4 & 0.77\\
+		\noalign{\vskip 1mm}\hline\noalign{\vskip 1mm}
+		\multicolumn{5}{l}{Candidate set-based prioritization methods}\\[1mm]
+		Scuba & 100 & 12.95 & 23.32$\pm$25.46 & 28.6 & 45.2 & 73.8 & 0.78\\
+		Suspects \cite{suspects} & 88.9$^{a}$ & 12.77$^{a}$ & 24.64$\pm$26.42$^{a}$ & 33.3$^{a}$ & 33.3$^{a}$ & 63.0$^{a}$ & 0.76$^{a}$\\
+		ToppGene \cite{toppgene} & 97.6 & 16.80 & 34.53$\pm$35.31 & \textbf{35.7} & 42.9 & 52.4 & 0.66\\
+		GeneWanderer-RW	\cite{genewanderer} & 88.1 & 22.10 & 29.55$\pm$26.28 & 16.7 & 26.2 & 61.9 & 0.71\\
+		Posmed-KS \cite{posmed} & 47.6 & 31.44 & 42.07$\pm$30.98 & 4.7 & 7.1 & 23.8 & 0.58\\
+		GeneDistiller \cite{genedistiller} & 97.6 & \textbf{11.11} & \textbf{15.37}$\pm$13.77 & 26.2 & \textbf{47.6} & 78.6 & \textbf{0.85}\\
+		Endeavour \cite{endeavour} & 100 & 11.16 & 18.41$\pm$21.39 & 26.2 & 42.9 & \textbf{90.5} & 0.82\\
+		Pinta \cite{pinta} & 100 & 18.87 & 25.23$\pm$24.72 & 28.6 & 31.0 & 71.4 & 0.75\\
+		\noalign{\vskip 1mm}\hline
+	\end{tabular}
+\end{table*}
+
+\begin{table*}[h!]
+	\caption{Performances of Scuba, MKL1class and ProDiGe in the expanded unbiased setting involving seven multifactorial diseases. Values refer to predictions on 48 gene-disease associations. Rank difference p-values were obtained using Wilcoxon signed rank tests comparing separately Scuba/MKL1class and Scuba/ProDiGe ranks differences. Asterisks indicate significance of the tests at a threshold of 0.05.\label{hpo}}
+	\begin{tabular}{c c c c c c c c c}	
+		\hline\noalign{\vskip 1mm}
+		Method & Rank & Rank & TPR in top & TPR in top & TPR in top & TPR in top & AUC & Rank difference \\
+		& median & average & 1\% (\%) & 5\% (\%) & 10\% (\%) & 30\% (\%) & & p-value \\
+		\noalign{\vskip 1mm}\hline\noalign{\vskip 1mm}
+		\multicolumn{4}{l}{Genome-wide prioritizations}\\[1mm]
+		Scuba & 8.13 & \textbf{17.45}$\pm$22.33 & \textbf{10.4} & 41.7 & \textbf{58.3} & \textbf{79.2} & \textbf{0.83} & - \\
+		MKL1class \cite{mkl1class} & 14.28 & 25.79$\pm$26.96 & 2.1 & 27.1 & 45.8 & 66.7& 0.74 & 1.2$\,\cdot$10$^{-5}$ * \\
+		ProDiGe \cite{prodige} & \textbf{7.89} & 18.40$\pm$23.77 & \textbf{10.4} & \textbf{43.8} & 54.2 & \textbf{79.2} & 0.82 & 9.5$\,\cdot$10$^{-2}$ \\
+		\noalign{\vskip 1mm}\hline
+	\end{tabular}
+\end{table*}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                               %%
+%% Additional Files              %%
+%%                               %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Additional Files}
+  \subsection*{Additional file 1 --- Supplementary Tables}
+    PDF file containing experimental results for individual diseases and different kernel combinations.
+
+%  \subsection*{Additional file 2 --- Sample additional file title}
+%    Additional file descriptions text.
+
+
+\end{backmatter}
+\end{document}

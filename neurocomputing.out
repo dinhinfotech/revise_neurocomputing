@@ -1,0 +1,15 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Background}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Definitions and Notations}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Kernels defined on graphs}{section.2}% 4
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Laplacian exponential diffusion kernel}{subsection.2.2}% 5
+\BOOKMARK [3][-]{subsubsection.2.2.2}{Exponential diffusion kernel}{subsection.2.2}% 6
+\BOOKMARK [3][-]{subsubsection.2.2.3}{Markov diffusion kernel}{subsection.2.2}% 7
+\BOOKMARK [3][-]{subsubsection.2.2.4}{Regularized Laplacian kernel}{subsection.2.2}% 8
+\BOOKMARK [1][-]{section.3}{Method}{}% 9
+\BOOKMARK [2][-]{subsection.3.1}{Node Labeling}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.2}{Network Decomposition}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.3}{The Conjunctive Disjunctive Node Kernel}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.4}{Real valued node information}{section.3}% 13
+\BOOKMARK [1][-]{section.4}{Empirical Evaluation}{}% 14
+\BOOKMARK [1][-]{section.5}{Conclusions}{}% 15
