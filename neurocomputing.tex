@@ -90,32 +90,23 @@
 %\address[mysecondaryaddress]{360 Park Avenue South, New York}
 
 \begin{abstract}
-Biological relations encoded in data sources are naturally represented in the form of graphs. As a consequence, a high number of graph-based biological learning systems have been proposed and shown promissing results. In graph-based learning systems, one of the key points which determines their performance is the denifition of graph node similarity measure. Node similarities are normally measured by graph node kernels. However, most available graph node kernels do not show high discriminative capacity since they share two common limitations. First they are based on the diffusion phenomenon which does not effectively exploit the nodes' configuration. Second they are not able to proceed the auxiliary information associated to graph nodes.
-
-In this paper, we propose an efficient graph node kernel that not only effectively exploits nodes' context, but also process with additional information which available on the graph nodes. Empirical evaluation on disease gene prioritization show that our proposed graph node kernel shows the state of the art concerning graph node kernels.
+Due to advances in data acquisition technologies (such as next generation sequencing), large amounts of information on biological systems are being encoded in relational data bases at an increasing rate. State of the art systems capable to deal with such structured data at scale,  include graph approaches based on the notion of diffusion kernels. In these systems, information is propagated in a discounted way according to the topology of the data network. A disadvantage of these approaches is that the specific configuration of the neighborhood of each node is ignored. Moreover it would be beneficial to integrate, when available, side information, encoded as arbitrary feature vectors associated to nodes or edges.
+%Biological relations encoded in data sources are naturally represented in the form of graphs. As a consequence, a high number of graph-based biological learning systems have been proposed and shown promising results. In graph-based learning systems, one of the key points which determines their performance is the definition of graph node similarity measure. Node similarities are normally measured by graph node kernels. However, most available graph node kernels do not show high discriminative capacity since they share two common limitations. First they are based on the diffusion phenomenon which does not effectively exploit the nodes' configuration. Second they are not able to proceed the auxiliary information associated to graph nodes.
+In this paper, we propose a graph decomposition approach that can exploit the information present in the local topology and that can efficiently incorporate vectorial side information. We consider the challenging problem of disease gene prioritization and show that we can achieve  state-of-the-art results.
 
 %Gene-disease associations are inferred on the basis of similarities between the proteins encoded by genes. Biological relationships used to define similarities range from interacting proteins, proteins that participate in pathways and protein expression profiles. Though graph kernel methods have become a prominent approach for association prediction, most solutions are based on a notion of information diffusion that does not capture the specificity of different network parts. Here we propose a graph kernel method that explicitly models the configuration of each gene's context. An empirical evaluation on several biological databases shows that our proposal achieves state-of-the-art results.
 \end{abstract}
 
 \begin{keyword}
-Graph node kernels, graph decomposition, disease gene prioritization
+Graph node kernels, disease gene association
 \end{keyword}
 \end{frontmatter}
 
 \linenumbers
 \section{Introduction}
+
 The release of advanced technologies is one of the main reasons for the
-revolution in various scientific research fields. In Biological and Medical
-domain, modern technologies are making it not only easier but also more
-economical than ever to undertake experiments and creating applications.
-As a consequence, a vast amount of biological data in terms of volume
-and type is generated through scientific experiments, published literature,
-high-throughput experiment technology, and computational analysis. This
-huge quantity of data are saved as biological datasets and made discoverable
-through web browsers, application programming interfaces, scalable search
-technology and extensive cross-referencing between databases. Biological
-databases normally contain information about gene function, structure, lo-
-calization, clinical effects of mutations and similarities of biological sequences and structures.
+revolution in various scientific research fields. In Biological and Medical domain, modern technologies are making it not only easier but also more economical than ever to undertake experiments and creating applications. As a consequence, a vast amount of biological data in terms of volume and type is generated through scientific experiments, published literature, high-throughput experiment technology, and computational analysis. This huge quantity of data are saved as biological datasets and made discoverable through web browsers, application programming interfaces, scalable search technology and extensive cross-referencing between databases. Biological databases normally contain information about gene function, structure, localization, clinical effects of mutations and similarities of biological sequences and structures.
 
 In Biomedical, disease-gene association recovery is a major goal in molecular  that has received much attention from many researchers. Despite that fact that a big progress has been made in the last decades, a number of genes known to be related to a genetic disease is normally limited. In order to find out the complement set of the known disease gene set, one way is to search for whole genome or specific regions that often contain a large number of suspected genes (candidate genes). This is obvious not a good idea as it is expensive not only in term of time consuming but also from financial aspect. For this reason, a considerable number of gene prioritization methods have been proposed. Predictive systems for gene-disease associations are often based on a notion of similarity between genes. A common strategy is to encode relations between genes as a network and to use graph based techniques to make useful inferences \cite{mordelet2011prodige}, \cite{chen2014disease}, \cite{valentini2014extensive}.
 

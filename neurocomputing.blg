@@ -1,46 +1,46 @@
-This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2015/MacPorts 2015_8)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: neurocomputing.aux
 The style file: elsarticle-num.bst
 Database file #1: mybibfile.bib
-You've used 15 entries,
+You've used 16 entries,
             2937 wiz_defined-function locations,
-            769 strings with 7943 characters,
-and the built_in function-call counts, 4736 in all, are:
-= -- 452
-> -- 144
-< -- 5
-+ -- 58
-- -- 43
-* -- 310
-:= -- 642
-add.period$ -- 15
-call.type$ -- 15
-change.case$ -- 16
+            775 strings with 8099 characters,
+and the built_in function-call counts, 5211 in all, are:
+= -- 501
+> -- 151
+< -- 6
++ -- 61
+- -- 45
+* -- 333
+:= -- 692
+add.period$ -- 16
+call.type$ -- 16
+change.case$ -- 17
 chr.to.int$ -- 0
-cite$ -- 15
-duplicate$ -- 157
-empty$ -- 533
-format.name$ -- 55
-if$ -- 1230
+cite$ -- 16
+duplicate$ -- 179
+empty$ -- 591
+format.name$ -- 58
+if$ -- 1362
 int.to.chr$ -- 0
-int.to.str$ -- 15
-missing$ -- 14
-newline$ -- 53
-num.names$ -- 15
-pop$ -- 98
+int.to.str$ -- 16
+missing$ -- 15
+newline$ -- 56
+num.names$ -- 16
+pop$ -- 108
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 322
+skip$ -- 361
 stack$ -- 0
-substring$ -- 292
-swap$ -- 42
-text.length$ -- 5
+substring$ -- 332
+swap$ -- 53
+text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 41
-width$ -- 17
-write$ -- 131
+while$ -- 45
+width$ -- 18
+write$ -- 140

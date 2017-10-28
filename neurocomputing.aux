@@ -17,84 +17,95 @@
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \bibstyle{elsarticle-num}
-\citation{kondor2002diffusion}
-\citation{chen2014disease}
-\citation{fouss2006experimental}
-\citation{chebotarev2006matrix}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
-\citation{kondor2002diffusion}
-\citation{chen2014disease}
-\citation{fouss2006experimental}
-\citation{chebotarev2006matrix}
-\citation{haussler1999convolution}
 \citation{mordelet2011prodige}
 \citation{chen2014disease}
 \citation{valentini2014extensive}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Background}{3}{section.2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Definitions and Notations}{3}{subsection.2.1}}
-\citation{haussler1999convolution}
-\citation{shervashidze2011weisfeiler,gartner2003survey,borgwardt2005shortest,costa2010fast}
-\citation{costa2010fast}
-\citation{costa2010fast}
-\citation{haussler1999convolution}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Kernels defined on graphs}{4}{subsection.2.2}}
-\newlabel{sec:ndpdk}{{2.2}{4}{The Neighborhood Subgraph Pairwise Distance Kernel}{section*.1}{}}
-\citation{kondor2002diffusion}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Pairwise neighborhood subgraphs for the ``red'' node with $r=1$ and $d=3$}}{5}{figure.1}}
-\newlabel{fig:nspdk}{{1}{5}{Pairwise neighborhood subgraphs for the ``red'' node with $r=1$ and $d=3$}{figure.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}Laplacian exponential diffusion kernel}{5}{subsubsection.2.2.1}}
 \citation{kondor2002diffusion}
 \citation{chen2014disease}
 \citation{fouss2006experimental}
-\newlabel{LEDK-formula}{{1}{6}{Laplacian exponential diffusion kernel}{equation.2.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Exponential diffusion kernel}{6}{subsubsection.2.2.2}}
-\newlabel{MEDK-formula}{{2}{6}{Exponential diffusion kernel}{equation.2.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.3}Markov diffusion kernel}{6}{subsubsection.2.2.3}}
 \citation{chebotarev2006matrix}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Background}{3}{section.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Definitions and Notations}{3}{subsection.2.1}}
+\citation{haussler1999convolution}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Kernels on graphs}{4}{subsection.2.2}}
+\citation{gartner2003survey}
+\citation{borgwardt2005shortest}
+\citation{shervashidze2009fast,shervashidze2011weisfeiler}
 \citation{costa2010fast}
-\newlabel{MDK-formula}{{3}{7}{Markov diffusion kernel}{equation.2.3}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.4}Regularized Laplacian kernel}{7}{subsubsection.2.2.4}}
-\newlabel{RLK-formula}{{4}{7}{Regularized Laplacian kernel}{equation.2.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Method}{7}{section.3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Node Labeling}{8}{subsection.3.1}}
-\newlabel{sec:lab}{{3.1}{8}{Node Labeling}{subsection.3.1}{}}
-\citation{gene2004gene}
+\citation{costa2010fast}
+\citation{haussler1999convolution}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}Graph kernels}{5}{subsubsection.2.2.1}}
+\newlabel{graph-kernels}{{2.2.1}{5}{Graph kernels}{subsubsection.2.2.1}{}}
+\citation{kondor2002diffusion}
+\citation{kondor2002diffusion}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Pairwise neighborhood subgraphs for the ``red'' node with $r=1$ and $d=3$}}{6}{figure.1}}
+\newlabel{fig:nspdk}{{1}{6}{Pairwise neighborhood subgraphs for the ``red'' node with $r=1$ and $d=3$}{figure.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Graph node kernels}{6}{subsubsection.2.2.2}}
+\newlabel{LEDK-formula}{{1}{6}{Graph node kernels}{equation.2.1}{}}
+\citation{chen2014disease}
+\citation{fouss2006experimental}
+\citation{chebotarev2006matrix}
+\newlabel{MEDK-formula}{{2}{7}{Graph node kernels}{equation.2.2}{}}
+\newlabel{MDK-formula}{{3}{7}{Graph node kernels}{equation.2.3}{}}
+\citation{costa2010fast}
+\newlabel{RLK-formula}{{4}{8}{Graph node kernels}{equation.2.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Method}{8}{section.3}}
+\newlabel{method}{{3}{8}{Method}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Network Decomposition}{8}{subsection.3.1}}
+\newlabel{network-decomposition}{{3.1}{8}{Network Decomposition}{subsection.3.1}{}}
 \citation{alvarez2005k}
 \citation{tarjan1985decomposition}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Network Decomposition}{10}{subsection.3.2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces K-core decomposition with degree threshold $D = 4$}}{10}{figure.2}}
+\newlabel{fig:kcore-decomposition}{{2}{10}{K-core decomposition with degree threshold $D = 4$}{figure.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}The Conjunctive Disjunctive Node Kernel}{10}{subsection.3.2}}
 \citation{costa2010fast}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces K-core decomposition with degree threshold $D = 4$}}{11}{figure.2}}
-\newlabel{fig:kcore-decomposition}{{2}{11}{K-core decomposition with degree threshold $D = 4$}{figure.2}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Clique decomposition with threshold $C = 4$}}{11}{figure.3}}
 \newlabel{fig:clique-decomposition}{{3}{11}{Clique decomposition with threshold $C = 4$}{figure.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}The Conjunctive Disjunctive Node Kernel}{11}{subsection.3.3}}
-\citation{costa2010fast}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Real valued node information}{12}{subsection.3.4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Pairwise neighborhood subgraphs for the ``red'' node with $r=1$ and $d=3$ using ``conjuction'' and ``disjuctive'' edges}}{13}{figure.4}}
-\newlabel{fig:cdnk}{{4}{13}{Pairwise neighborhood subgraphs for the ``red'' node with $r=1$ and $d=3$ using ``conjuction'' and ``disjuctive'' edges}{figure.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Empirical Evaluation}{13}{section.4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Pairwise neighborhood subgraphs for the ``red'' node with $r=1$ and $d=3$ using ``\textit  {conjuction}'' and ``\textit  {disjuctive}'' edges}}{12}{figure.4}}
+\newlabel{fig:cdnk}{{4}{12}{Pairwise neighborhood subgraphs for the ``red'' node with $r=1$ and $d=3$ using ``\textit {conjuction}'' and ``\textit {disjuctive}'' edges}{figure.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Parameter Space}{12}{section.4}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Empirical Evaluation}{13}{section.5}}
+\newlabel{empirical-evaluation-cdnk}{{5}{13}{Empirical Evaluation}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Experimental Settings and Evalution Method}{13}{subsection.5.1}}
 \citation{chen2014disease}
 \citation{goh2007human}
 \citation{chen2014disease}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusions}{15}{section.5}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \textit  {Predictive performance on 11 gene-disease associations in percentage using network induced by the BioGPS. Best results in bold. We report the AUC ROC and the rank for each kernel method. CDNK1 = ontology for discrete labels, CDNK2 = ontology for both discrete and vector labels, CDNK3 = node degree for discrete labels and CDNK4 = node degree for discrete labels and ontology for vector label.}}}{16}{table.1}}
-\newlabel{table_biogps}{{1}{16}{\textit {Predictive performance on 11 gene-disease associations in percentage using network induced by the BioGPS. Best results in bold. We report the AUC ROC and the rank for each kernel method. CDNK1 = ontology for discrete labels, CDNK2 = ontology for both discrete and vector labels, CDNK3 = node degree for discrete labels and CDNK4 = node degree for discrete labels and ontology for vector label.}}{table.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces \textit  {Predictive performance on 11 gene-disease associations in percentage using network induced by the Pathways. Best results in bold. We report the AUC ROC and the rank for each kernel method. CDNK1 = ontology for discrete labels, CDNK2 = ontology for both discrete and vector labels, CDNK3 = node degree for discrete labels and CDNK4 = node degree for discrete labels and ontology for vector label.}}}{17}{table.2}}
-\newlabel{table_pathways}{{2}{17}{\textit {Predictive performance on 11 gene-disease associations in percentage using network induced by the Pathways. Best results in bold. We report the AUC ROC and the rank for each kernel method. CDNK1 = ontology for discrete labels, CDNK2 = ontology for both discrete and vector labels, CDNK3 = node degree for discrete labels and CDNK4 = node degree for discrete labels and ontology for vector label.}}{table.2}{}}
+\citation{gene2004gene}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Node Labeling}{15}{subsection.5.2}}
+\newlabel{sec:lab}{{5.2}{15}{Node Labeling}{subsection.5.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Model Selection}{16}{subsection.5.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Parameter Impact}{16}{subsection.5.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Results and Discussion}{16}{subsection.5.5}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion and Future Work}{17}{section.6}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \textit  {Predictive performance on 11 gene-disease associations in percentage using network induced by the BioGPS. Best results in bold. We report the AUC ROC and the rank for each kernel method. CDNK1 = ontology for discrete labels, CDNK2 = ontology for both discrete and vector labels, CDNK3 = uniform discrete labels and CDNK4 = uniform discrete labels and ontology for vector label.}}}{18}{table.1}}
+\newlabel{fig:cdnk-biogps}{{1}{18}{\textit {Predictive performance on 11 gene-disease associations in percentage using network induced by the BioGPS. Best results in bold. We report the AUC ROC and the rank for each kernel method. CDNK1 = ontology for discrete labels, CDNK2 = ontology for both discrete and vector labels, CDNK3 = uniform discrete labels and CDNK4 = uniform discrete labels and ontology for vector label.}}{table.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces \textit  {Predictive performance on 11 gene-disease associations in percentage using network induced by the Pathways. Best results in bold. We report the AUC ROC and the rank for each kernel method. CDNK1 = ontology for discrete labels, CDNK2 = ontology for both discrete and vector labels, CDNK3 = uniform discrete labels and CDNK4 = uniform discrete labels and ontology for vector label.}}}{19}{table.2}}
+\newlabel{fig:cdnk-pathways}{{2}{19}{\textit {Predictive performance on 11 gene-disease associations in percentage using network induced by the Pathways. Best results in bold. We report the AUC ROC and the rank for each kernel method. CDNK1 = ontology for discrete labels, CDNK2 = ontology for both discrete and vector labels, CDNK3 = uniform discrete labels and CDNK4 = uniform discrete labels and ontology for vector label.}}{table.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Performance with C changes}}{20}{figure.5}}
+\newlabel{fig:c-change}{{5}{20}{Performance with C changes}{figure.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Performance with d* changes}}{20}{figure.6}}
+\newlabel{fig:d-change}{{6}{20}{Performance with d* changes}{figure.6}{}}
+\newlabel{fig:D-change}{{6}{20}{Conclusion and Future Work}{figure.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Performance with D changes}}{20}{figure.7}}
+\newlabel{fig:vs-change}{{6}{20}{Conclusion and Future Work}{figure.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Performance with P changes}}{20}{figure.8}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusions}{20}{section.7}}
 \bibdata{mybibfile}
-\bibcite{kondor2002diffusion}{{1}{}{{}}{{}}}
+\bibcite{mordelet2011prodige}{{1}{}{{}}{{}}}
 \bibcite{chen2014disease}{{2}{}{{}}{{}}}
-\bibcite{fouss2006experimental}{{3}{}{{}}{{}}}
-\bibcite{chebotarev2006matrix}{{4}{}{{}}{{}}}
-\bibcite{haussler1999convolution}{{5}{}{{}}{{}}}
-\bibcite{mordelet2011prodige}{{6}{}{{}}{{}}}
-\bibcite{valentini2014extensive}{{7}{}{{}}{{}}}
-\bibcite{shervashidze2011weisfeiler}{{8}{}{{}}{{}}}
-\bibcite{gartner2003survey}{{9}{}{{}}{{}}}
-\bibcite{borgwardt2005shortest}{{10}{}{{}}{{}}}
-\bibcite{costa2010fast}{{11}{}{{}}{{}}}
-\bibcite{gene2004gene}{{12}{}{{}}{{}}}
+\bibcite{valentini2014extensive}{{3}{}{{}}{{}}}
+\bibcite{kondor2002diffusion}{{4}{}{{}}{{}}}
+\bibcite{fouss2006experimental}{{5}{}{{}}{{}}}
+\bibcite{chebotarev2006matrix}{{6}{}{{}}{{}}}
+\bibcite{haussler1999convolution}{{7}{}{{}}{{}}}
+\bibcite{gartner2003survey}{{8}{}{{}}{{}}}
+\bibcite{borgwardt2005shortest}{{9}{}{{}}{{}}}
+\bibcite{shervashidze2009fast}{{10}{}{{}}{{}}}
+\bibcite{shervashidze2011weisfeiler}{{11}{}{{}}{{}}}
+\bibcite{costa2010fast}{{12}{}{{}}{{}}}
 \bibcite{alvarez2005k}{{13}{}{{}}{{}}}
 \bibcite{tarjan1985decomposition}{{14}{}{{}}{{}}}
 \bibcite{goh2007human}{{15}{}{{}}{{}}}
+\bibcite{gene2004gene}{{16}{}{{}}{{}}}
 \providecommand\NAT@force@numbers{}\NAT@force@numbers
