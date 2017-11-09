@@ -6,12 +6,15 @@
 \usepackage{amssymb,amsmath,array}
 \usepackage{xcolor}% provides \colorlet
 \usepackage{fixme}
-\fxsetup{
-    status=draft,
-    author=,
-    layout=inline,
-    theme=color
-}
+\usepackage{subfig}
+\usepackage{float}
+%\usepackage[caption = false]{subfig}
+%\fxsetup{
+%    status=draft,
+%    author=,
+%    layout=inline,
+%    theme=color
+%}
 
 \definecolor{fxnote}{rgb}{0.8000,0.0000,0.0000}
 % define the background colour:
@@ -116,7 +119,7 @@ We propose an effective convolutional graph node kernel, named \textit{Conjuncti
 
 \section{Background}
 In this section, we first introduce definitions and notations that are used to define our proposed method. We then describe the state-of-the-art concerning graph node kernels.
-\subsection{Definitions and Notations}
+\subsection{Definitions and notations}
 A graph is a structure $G=(\mathbb{V},\mathbb{E}, \mathcal{L}_1, \mathcal{L}_2)$ where $\mathbb{V}$, $\mathbb{E}, \mathcal{L}_1, \mathcal{L}_2$ are the vertex (node) set, link (edge) set, discrete labeling fuction and real vector labeling function, respectively. The functions $\mathcal{L}_1, \mathcal{L}_2$ are defined as:
 \begin{itemize}
 \item $\mathcal{L}_1: \mathbb{V} \longmapsto \mathbb{L}$, where $\mathbb{L}$ is a set of discrete labels. $\mathcal{L}_1$ assigns a single discrete label $\ell \in \mathbb{L}$ for each ndoe $v \in \mathbb{V}$, $\mathcal{L}_1(v) = \ell$. 
@@ -149,9 +152,9 @@ The problem of developing kernels defined on structured data in general and grap
 %Examples are kernels proposed in \cite{shervashidze2011weisfeiler, gartner2003survey, borgwardt2005shortest, costa2010fast}. Following we describe NSPDK \cite{costa2010fast}, a convolutional graph kernel which shows state of performance and it is later on used to define our proposed graph node kernel.
 \subsubsection{Graph kernels}
 \label{graph-kernels}
-The task of designing effient and expressive graph kernels play an important role in the development of graph-based predictive systems. Existing graph kernels are decompositional kernels and can be classified into two categories: sequence-based graph kernels and subgraph-based graph kernels. The sequence-based graph kernels decompose graphs into ``parts" in sequence-based forms, such as paths and walks. Typical examples of sequence-based graph kernels are product graph kernel, \cite{gartner2003survey}, shortest path kernels \cite{borgwardt2005shortest}. The subgraph-based graph kernels dissolve graphs into subgraphs. Examples include Weisfeiler-Lehman kernels \cite{shervashidze2009fast, shervashidze2011weisfeiler}, The Neighborhood Subgraph Pairwise Distance Kernel (NSPDK) \cite{costa2010fast}. Following we describe NSPDK since it is later adopted to develop our graph node kernel (presented in \ref{method}).
+The task of designing effient and expressive graph kernels play an important role in the development of graph-based predictive systems. Existing graph kernels are decompositional kernels and can be classified into two categories: sequence-based graph kernels and subgraph-based graph kernels. The sequence-based graph kernels decompose graphs into ``parts" in sequence-based forms, such as paths and walks. Typical examples of sequence-based graph kernels are product graph kernel, \cite{gartner2003survey}, shortest path kernels \cite{borgwardt2005shortest}. The subgraph-based graph kernels dissolve graphs into subgraphs. Examples include Weisfeiler-Lehman kernels \cite{shervashidze2009fast, shervashidze2011weisfeiler}, The Neighborhood Subgraph Pairwise Distance Kernel (NSPDK) \cite{costa2010fast}. Following we describe NSPDK since it is later adopted to develop our graph node kernel (presented in Section \ref{method}).
 
-The NSPDK \cite{costa2010fast} is an instance of convolution kernel \cite{haussler1999convolution} where given a graph $G \in \mathcal{G}$ and two rooted graphs $A_u, B_v$, the relation $R_{r,d}(A_u, B_v, G)$ is true {\em iff} $A_u \cong \mathcal{N}_r^u$ is (up to isomorphism $\cong$) a neighborhood subgraph of radius $r$ of $G$ and so is $B_v \cong  \mathcal{N}_r^v$, with roots at distance $\mathcal{D}(u,v)= d$. Figure \ref{sec:ndpdk} illustrates a pairwise neighborhood subgraph. We denote $R^{-1}$ as the inverse relation that returns all pairs of neighborhoods of radius $r$ at distance $d$ in $G$, $R^{-1}_{r,d}(G) = \lbrace A_u, B_v | R_{r,d}(A_u,B_v,G)=true\rbrace$. The kernel $\kappa_{r,d}$ over $\mathcal{G} \times \mathcal{G}$, counts the number of such fragments in common in two input graphs: 
+The NSPDK \cite{costa2010fast} is an instance of convolution kernel \cite{haussler1999convolution} where given a graph $G \in \mathcal{G}$ and two rooted graphs $A_u, B_v$, the relation $R_{r,d}(A_u, B_v, G)$ is true {\em iff} $A_u \cong \mathcal{N}_r^u$ is (up to isomorphism $\cong$) a neighborhood subgraph of radius $r$ of $G$ and so is $B_v \cong  \mathcal{N}_r^v$, with roots at distance $\mathcal{D}(u,v)= d$. Figure \ref{fig:nspdk} illustrates a pairwise neighborhood subgraph. We denote $R^{-1}$ as the inverse relation that returns all pairs of neighborhoods of radius $r$ at distance $d$ in $G$, $R^{-1}_{r,d}(G) = \lbrace A_u, B_v | R_{r,d}(A_u,B_v,G)=true\rbrace$. The kernel $\kappa_{r,d}$ over $\mathcal{G} \times \mathcal{G}$, counts the number of such fragments in common in two input graphs: 
 \begin{center}
 $\kappa_{r,d}(G,G^{'}) = 
 \!\!\!\!\!\!\!\!\!\!\!\! 
@@ -188,7 +191,7 @@ K = e^{-\beta M}
 \end{equation}
 The difference with respect to the Laplacian diffusion kernel is the replacement of $L$ by the matrix $M=(D-A-nI)/n$ where $n$ is the total number of vertices in graph. The role of $\beta$ is the same as for LEDK.
 
-\item Markov diffusion kernel: The original Markov diffusion kernel MDK was introduced by Fouss et al. \cite{fouss2006experimental} and exploits the idea of diffusion distance, which is a measure of how similar the pattern of heat diffusion is among a pair of initialized nodes. In other words, it expresses how much nodes "influence" each other in a similar fashion. If their diffusion ways are alike, the similarity will be high and, vice versa, it will be low if they diffuse differently. This kernel is computed starting from the transition matrix $P$ and by defining $Z(t) = \frac{1}{t}\sum_{\tau=1}^{t}P^{\tau}$, as follows:
+\item Markov diffusion kernel: The original Markov diffusion kernel MDK was introduced by Fouss et al. \cite{fouss2006experimental} and exploits the idea of diffusion distance, which is a measure of how similar the pattern of heat diffusion is among a pair of initialized nodes. In other words, it expresses how much nodes ``influence" each other in a similar fashion. If their diffusion ways are alike, the similarity will be high and, vice versa, it will be low if they diffuse differently. This kernel is computed starting from the transition matrix $P$ and by defining $Z(t) = \frac{1}{t}\sum_{\tau=1}^{t}P^{\tau}$, as follows:
 \begin{equation} 
 \label{MDK-formula}
 K = Z(t)Z^{\top}(t)
@@ -208,9 +211,9 @@ We start from the type of similarity notion computed by a neighborhood based dec
 
 Given an input labeled graph $G=(V,E, \mathcal{L}_1, \mathcal{L}_2)$, our kernel consists of two phases. In the first phase, a network decomposition procedure is applied to transform the graph into a set of linked sparse connected components. In this procedure, we define two different kinds of link: \textit{conjunctive} and \textit{disjunctive} in which we treat them in distinct manners. In the second step, the similarity between any node couple ($u$, $v$) is computed by adopting NSPDK on two neighborhood subgraphs rooted as $u$ and $v$ which extracted from the resulted graph after decomposing. In the following, we describe each phase in detail.
 
-\subsection{Network Decomposition} 
+\subsection{Network decomposition} 
 \label{network-decomposition}
-In genetic networks, it is not uncommon to find nodes with high degrees. Unfortunately these cases cannot be effectively processed by a neighborhood based decomposition kernel (see \ref{graph-kernels}) since these are based on the notion of exact matches. Neighborhood subgraphs rooted at high degree nodes are relatively big due to a high number of neighbors and edges. It leads to a low likelihood of finding neighborhood subgraphs rooted at high degree nodes which are isomorphic. Thus, the probability of having identical neighborhoods decreases exponentially as the degree increases. This means that in a finite network it quickly becomes impossible to find any match and hence learn or generalize at all. 
+In genetic networks, it is not uncommon to find nodes with high degrees. Unfortunately these cases cannot be effectively processed by a neighborhood based decomposition kernel (see Section \ref{graph-kernels}) since these are based on the notion of exact matches. Neighborhood subgraphs rooted at high degree nodes are relatively big due to a high number of neighbors and edges. It leads to a low likelihood of finding neighborhood subgraphs rooted at high degree nodes which are isomorphic. Thus, the probability of having identical neighborhoods decreases exponentially as the degree increases. This means that in a finite network it quickly becomes impossible to find any match and hence learn or generalize at all. 
 
 We propose a procedure to ``sparsify'' the network that is observed by the neighborhood kernel. In practice, we mostly keep the same the cardinality of the edge set. However we mark the edges with special attributes so that kernel is able to treat them differently when computing. The result is a procedure that decomposes the network in a linked collection of sparse sub-networks where each node has a reduced connectivity when considering the edges of a specific type. However the other edges are still available to connect the various sub-networks. We distinguish two types of edges: {\em conjunctive} and {\em disjunctive} edges. Nodes linked by conjunctive edges are going to be used jointly to define the notion of context and will be visible to the neighborhood graph kernel. Nodes linked by disjunctive edges are instead used to define features based only on the pairwise co-occurrence of the genes at the endpoints and are processed by our novel kernel.
 
@@ -229,12 +232,12 @@ In our work a network is transformed by applying first the iterative k-core deco
 
 \begin{figure}
 \centering
-\includegraphics[width=.9\textwidth]{cliques}
+\includegraphics[width=.9\textwidth]{cliques.pdf}
 \caption{Clique decomposition with threshold $C = 4$}
 \label{fig:clique-decomposition}
 \end{figure}
 
-\subsection{The Conjunctive Disjunctive Node Kernel}
+\subsection{The conjunctive disjunctive node kernel}
 %We start from the Neighborhood Subgraph Pairwise Distance Kernel (NSPDK) \cite{costa2010fast} and adapt it to express the similarity between nodes in a single network. The key idea in NSPDK is to decompose graphs in small fragments and count how many pairs of fragments are shared between two instances. We introduce two improvements: \textit{i}) we partition the features according to the individual node's neighborhood, and \textit{ii}) we introduce a  distinction between ``disjunctive'' and ``conjunctive'' edges.
 
 We define a node kernel $K(G_u,G_{u'})$ between two copies of the same network $G$ where we distinguish the nodes $u$ and $u'$ respectively. The idea is to define the features of a node $u$ as the subset of NSPDK features that always have the node $u$ as one of the roots. In addition we distinguish between two types of edges, called {\em conjunctive} and {\em disjunctive} edges. When computing distances to induce neighborhood subgraphs, only conjunctive edges are considered. When choosing the
@@ -257,7 +260,7 @@ The CDNK is finally defined as $K(G_u,G_{u'}) = \sum\limits_{r}{\sum\limits_{d}{
 \begin{figure}
 \centering
 \includegraphics[width=.9\textwidth]{cdnk}
-\caption{Pairwise neighborhood subgraphs for the ``red'' node with $r=1$ and $d=3$ using ``\textit{conjuction}'' and ``\textit{disjuctive}'' edges}
+\caption{Pairwise neighborhood subgraphs for the ``red'' node with $r=1$ and $d=3$ using ``\textit{conjunctive}'' and ``\textit{disjunctive}'' edges}
 \label{fig:cdnk}
 \end{figure}
 
@@ -269,10 +272,10 @@ where the discrete convolution is defined as:
 $(f \bigotimes g)[n]=\sum _{m=0}^{K-1}f[n-m]g[m].$
 In words, we are starting a scaled copy of the real valued vector at the position indicated by each feature computed on the basis of the discrete information. Intuitively, when both the real valued and the discrete information match, the kernel computes a large similarity, but if there is a discrepancy in either one of the sources of information, the similarity will be penalized. 
 
-\section{Parameter Space}
-Our kernel consists of five parameters: the threshold degree $D$, clique size threshold $C$, maximal radius $r^*$, maximal distance $d^*$ and number of clusters $P$ clusters in which their values are in $\mathbb{N}^*$. In order to choose the optimal tuple of parameters for kernel in a specific setting, a model selection procedure is normally adopted from a determined subset of parameter space. The parameter space of our kernel seems large due to the relatively high number of parameters. However, most parameter values are supposed to be in limited ranges. Therefore, it is actually not too big. In particular, the clique size threshold $C$ is recommended to be in $\lbrace 4, 5\rbrace$. The maximal radius $r^*$ is set with a value smaller than or equal to $3$ since it will lead to big neighborhood subgraphs (as discussed in \ref{network-decomposition}). The maximal distance $d^*$ is assigned with values less than or equal to $4$ because the value of the maximal shortest distance between nodes in a connected component is often not too high. The values of the threshold degree $D$ should neither be too high and too low. If it is high, we have to face with high degree node problem, and if it is too low, the obtained graph consists of too sparse connected components. Therefore, we suggest the value for $D$ is in $\left[6, 20 \right]$. 
+\section{Parameter space}
+Our kernel consists of five parameters: the threshold degree $D$, clique size threshold $C$, maximal radius $r^*$, maximal distance $d^*$ and number of clusters $P$ clusters in which their values are in $\mathbb{N}^*$. In order to choose the optimal tuple of parameters for kernel in a specific setting, a model selection procedure is normally adopted from a determined subset of parameter space. The parameter space of our kernel seems large due to the relatively high number of parameters. However, most parameter values are supposed to be in limited ranges. Therefore, it is actually not too big. In particular, the clique size threshold $C$ is recommended to be in $\lbrace 4, 5\rbrace$. The maximal radius $r^*$ is set with a value smaller than or equal to $3$ since it will lead to big neighborhood subgraphs (as discussed in Section \ref{network-decomposition}). The maximal distance $d^*$ is assigned with values less than or equal to $4$ because the value of the maximal shortest distance between nodes in a connected component is often not too high. The values of the threshold degree $D$ should neither be too high and too low. If it is high, we have to face with high degree node problem, and if it is too low, the obtained graph consists of too sparse connected components. Therefore, we suggest the value for $D$ is in $\left[6, 20 \right]$. 
 
-\section{Empirical Evaluation}
+\section{Empirical evaluation}
 \label{empirical-evaluation-cdnk}
 In this section, we desire to evaluate the performance of CDNK and other graph node kernels to answer for the two following questions:
 \begin{itemize}
@@ -280,12 +283,12 @@ In this section, we desire to evaluate the performance of CDNK and other graph n
 \item Does the use of side information (real vector labels) help to improve the performance of CDNK?
 \end{itemize}
 
-\subsection{Experimental Settings and Evalution Method}
+\subsection{Experimental settings and evalution methods}
 We carry out experiments in the context of disease gene prioritization where the aim is to build a learning system which allows to prioritize candidate genes based on their probabilities of being associated to a given genetic disease.
 
  Given a genetic graph and a list of training genes known to cause a genetic disease. We first apply  a graph node kernel to compute kernel matrix. This kernel matrix together with training gene set are used as the input of a learning algorithm to construct a model. The obtained model is then used to prioritize for candidate genes.
 
-The experiments are performed on two separate networks derived from BioGPS and Pathways datasets in which we follow the experiment procedure in \cite{chen2014disease} where 12 diseases \cite{goh2007human} are used in which each disease is associated to at least 30 positive genes (see table \ref{tab:cdnk-diseases} for the list of genetic diseases and the number of positive genes in each disease). For each disease, we construct a positive set $\mathcal{P}$ with all positive (confirmed) disease genes, and a negative set $\mathcal{N}$ which contains random genes associated at least to one disease class which is not related to the class that is defining the positive set. In \cite{chen2014disease} the ratio between the dataset sizes is chosen as $\vert \mathcal{N} \vert = \frac{1}{2} \vert \mathcal{P} \vert$. This is due to the fact that genes known to be related to at least a genetic disease, but not to the considered one are well studied, so they have low probability to be associated to the current disease.
+The experiments are performed on two separate networks derived from BioGPS and Pathways datasets in which we follow the experiment procedure in \cite{chen2014disease} where 12 diseases \cite{goh2007human} are used in which each disease is associated to at least 30 positive genes (see \textit{Appendix} \footnote{https://github.com/dinhinfotech/Neurocoputing/blob/master/appendix.pdf} for the list of genetic diseases and the number of positive genes in each disease). For each disease, we construct a positive set $\mathcal{P}$ with all positive (confirmed) disease genes, and a negative set $\mathcal{N}$ which contains random genes associated at least to one disease class which is not related to the class that is defining the positive set. In \cite{chen2014disease} the ratio between the dataset sizes is chosen as $\vert \mathcal{N} \vert = \frac{1}{2} \vert \mathcal{P} \vert$. This is due to the fact that genes known to be related to at least a genetic disease, but not to the considered one are well studied, so they have low probability to be associated to the current disease.
 \begin{itemize}
 \item \textbf{BioGPS:} A gene co-expression network is constructed from BioGPS dataset, which contains 79 tissues, measured with the Affymetrix U133A array. Edges are inserted when the pairwise Pearson correlation coefficient (PCC) between genes is larger than 0.5.
 
@@ -295,7 +298,7 @@ To compare the performance of graph node kernels, we fix the learning algorithm 
 
 The predictive performance of the system using each kernel is evaluated via a leave-one-out cross validation: one gene is kept out in turn and the rest are used to train an SVM model. We compute a decision score $q_i$ for the test gene $g_i$ as the top percentage value of score $s_i$ among all candidate gene scores. We collect all decision scores for every gene in the test set to form a global decision score list on which we compute the AUC-ROC.
 
-\subsection{Node Labeling} 
+\subsection{Node labeling} 
 \label{sec:lab}
 The graph node kernel takes the labled graphs as its input in which labels can be discrete and/or real valued vectors. Therefore, to carry out experiments on graphs derived from BioGPS and Pathways, we need ways to label for these genetic graphs. Following are our proposed node labeling methods for genetic networks. Note that we allow the user to define and use any node labeling functions which are informative.
 
@@ -307,25 +310,17 @@ The second approach aims to use nodes labels to encode abstract information abou
 
 \textit{Real vector labels:} In addition to encoding the functional information as a discrete label we add a richer description by computing the similarity vector w.r.t. to each cluster. In this way we can fully exploit the latent description of the genes in terms of the different functional groups captured by the clustering procedure. Formally, given a vector $v \in I\!R^{26501}$ we compute a similarity vector $S(v)= {s_1, s_2, \ldots s_P}$ with entries $s_i = \frac{1}{1+ \ell(v,c_i)}$ where $\ell(v,c_i)$ is the Euclidean distance of $v$ from the center of the $i^{th}$ cluster $c_i = \frac{1}{|C_i|}\sum_{x \in C_i} x$ computed as the geometric mean of the elements in the cluster $C_i$.
 
-\subsection{Model Selection}
+\subsection{Model selection}
 The hyper parameters of the various methods are tuned using a k-fold cross validation. However due to the non i.i.d. nature of the problem, we employ a stronger setup to ensure no information leakage. The dataset on which we are validating the performance is never subsequently used in the predictive performance estimation. The values for diffusion parameter $\beta$ in LEDK and MEDK are sampled in $\lbrace 10^{-3}, 10^{-3}, 10^{-2}, 10^{-1} \rbrace$, time steps $t$ in MDK in $\lbrace 1, 10, 100 \rbrace$ and RLK parameter $\beta$ in $\lbrace 1, 4, 7 \rbrace$. For CDNK, the degree threshold values, $D$, are sampled in $\lbrace 10,\ 15,\ 20 \rbrace$, clique size threshold, $C$, in $\lbrace 4,\ 5 \rbrace$, maximum radius, $r^*$, in $\lbrace 1,\ 2 \rbrace$, maximum distance, $d^*$, in $\lbrace 2,\ 3,\ 4 \rbrace$, number of clusters $P$ in $\lbrace 5,\ 7 \rbrace$. Finally, the regularization trade off parameter $C$ for the SVM is sampled in $\lbrace 10^{-5},  \ 10^{-4}, \ 10^{-3},\ 10^{-2},\ 10^{-1}, 1,\ 10,\ 10^2 \rbrace$.
 
-\subsection{Parameter Impact}
-In order to evaluate the stability of kernel w.r.t the change of each parameter values, we perform experiments with disease-gene association 2 and on the BioGPS network. For each parameter, first fix the values of all other parameters, but allow the value of this papameter to change. More precisely, we use the optimal tuple $C = 5, d^* = 1, D = 20, P = 15$ for the fixed of parameters' values. We let the changes of $C$ in $\lbrace 4, 5, 6, 7, 8, 9\rbrace$, $d^*$ in $\lbrace 1, 2, 3, 4\rbrace$, $D$ in $\lbrace 8, 10,  15, 20, 30, 40, 50\rbrace$ and real vector size, $P$ in $\lbrace 8, 10,  15, 20, 30, 50, 70, 90\rbrace$
+\subsection{Parameter impact}
+In order to evaluate the stability of kernel w.r.t the change of each parameter values, we perform experiments with disease-gene association 2 and on the BioGPS network. For each parameter, first fix the values of all other parameters, but allow the value of this papameter to change. More precisely, we use the optimal tuple $C = 5,\ d^* = 1,\ D = 20,\ P = 15$ for the fixed of parameters' values. We let the changes of $C$ in $\lbrace 4,\ 5,\ 6,\ 7,\ 8,\ 9\rbrace$, $d^*$ in $\lbrace 1,\ 2,\ 3,\ 4\rbrace$, $D$ in $\lbrace 8,\ 10,\ 15,\ 20,\ 30,\ 40,\ 50\rbrace$ and real vector size, $P$ in $\lbrace 8,\ 10,\ 15,\ 20,\ 30,\ 50,\ 70,\ 90\rbrace$
 
-\subsection{Results and Discussion}
-Table \ref{fig:cdnk-biogps} and \ref{fig:cdnk-pathways} show the AUC-ROC performance of different models using state of the art graph node kernels and different variations of CDNK on BioGPS and Pathways networks, respectively. In what follows, we analyze the results to answer for the two questions which are previously raised.
-
-Concering the performance of different graph node kernels, CDNK variations outperform diffusion-based graph node kernels in all cases on BioGPS dataset and 8 out of 11 cases on Pathways when compared to diffusion-based kernels. CDNK is ranked first when considering both the average AUC-ROC and the average rank with a difference, w.r.t. the best diffusion-based kernel, ranging from 5.4$\%$ to 10$\%$ and from 1.2$\%$ to 3.4$\%$ on BioGPS and Pathways, respectively. As a consequence, we can conclude that CDNK show state of the art performance in graph node kernels.
-
-Regarding the variations of CDNK, the integration of real valued vectors improves the performance in most cases. In particular, considering the use of discrete labels based on ontology, using side information helps to increase the performance in all diseases on BioGPS and in 9 out of 11 diseases on Pathways. Similarly, by employing auxiliary information associated to graph nodes, the performance of CNDK in case of using uniform discrete labels is also improved in 9 and 8 out of 11 on BioGPS and Pathways, respectively.
-%==================================================
-\section{Conclusion and Future Work}
-We have shown how decomposing a network in a set of connected sparse graphs allows us to take advantage of the discriminative power of CDNK, a novel decomposition kernel, to achieve state-of-the-art results. Moreover, we have also introduced the way to integrate ``side'' information in form of real valued vectors when it is available on graph to get even better performance of CDNK. In future work we will investigate how to \textit{i}) decompose networks in a data driven way and \textit{ii}) extend the CDNK approach to gene-disease association problems exploiting multiple heterogeneous information sources in a joint way.
+\subsection{Results and discussion}
 %======================================================
 %==================================================
 %==================================================
-\begin{table}
+\begin{table}[h]
 \caption{\textit {Predictive performance on 11 gene-disease associations in percentage using network induced by the BioGPS. Best results in bold. We report the AUC ROC and the rank for each kernel method.  CDNK1 = ontology for discrete labels, CDNK2 = ontology for both discrete and vector labels, CDNK3 = uniform discrete labels and CDNK4 = uniform discrete labels and ontology for vector label.}} \vspace{1em}
 %\vspace*{5pt}
 \centering
@@ -368,10 +363,9 @@ $\overline{Rank}$ & 6.09 & 7.09 &  5.36 & 4.82 & 4.45 & \textbf{1.64} & 4.18 & 2
 \end{tabular}
 \label{fig:cdnk-biogps}
 \end{table}
-
 %=====================================
 %=====================================
-\begin{table}
+\begin{table}[h]
 \caption{\textit {Predictive performance on 11 gene-disease associations in percentage using network induced by the Pathways. Best results in bold. We report the AUC ROC and the rank for each kernel method.  CDNK1 = ontology for discrete labels, CDNK2 = ontology for both discrete and vector labels, CDNK3 = uniform discrete labels and CDNK4 = uniform discrete labels and ontology for vector label.}} \vspace{1em}
 %\vspace*{5pt}
 \centering
@@ -413,41 +407,34 @@ $\overline{Rank}$ & 7.73 & 6.82 & 4.55 & 4.09 & 3.91 & \textbf{2.27} & 3.18 & 2.
 \end{tabular}
 \label{fig:cdnk-pathways}
 \end{table}
+Table \ref{fig:cdnk-biogps} and \ref{fig:cdnk-pathways} show the AUC-ROC performance of different models using state of the art graph node kernels and different variations of CDNK on BioGPS and Pathways networks, respectively. In what follows, we analyze the results to answer for the two questions which are previously raised.
 
-\newpage
-\begin{figure}[!tbp]
-  \centering
-  \begin{minipage}[b]{0.47\textwidth}
-    \includegraphics[width=\textwidth]{cliques.png}
-    \caption{Performance with C changes}
-    \label{fig:c-change}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[b]{0.47\textwidth}
-    \includegraphics[width=\textwidth]{distance.png}
-    \caption{Performance with d* changes}
-    \label{fig:d-change}
-  \end{minipage}
-\end{figure}
+Concering the performance of different graph node kernels, CDNK variations outperform diffusion-based graph node kernels in all cases on BioGPS dataset and 8 out of 11 cases on Pathways when compared to diffusion-based kernels. CDNK is ranked first when considering both the average AUC-ROC and the average rank with a difference, w.r.t. the best diffusion-based kernel, ranging from 5.4$\%$ to 10$\%$ and from 1.2$\%$ to 3.4$\%$ on BioGPS and Pathways, respectively. As a consequence, we can conclude that CDNK show state of the art performance in graph node kernels.
 
-\begin{figure}[!tbp]
-\centering
-  \begin{minipage}[b]{0.47\textwidth}
-    \includegraphics[width=\textwidth]{degree.png}
-    \label{fig:D-change}
-    \caption{Performance with D changes}
-  \end{minipage}
-  \begin{minipage}[b]{0.47\textwidth}
-    \includegraphics[width=\textwidth]{vec_size.png}
-    \label{fig:vs-change}
-    \caption{Performance with P changes}
-  \end{minipage}  
-\end{figure}
-
-
-
-\section{Conclusions}
+Regarding the variations of CDNK, the integration of real valued vectors improves the performance in most cases. In particular, considering the use of discrete labels based on ontology, using side information helps to increase the performance in all diseases on BioGPS and in 9 out of 11 diseases on Pathways. Similarly, by employing auxiliary information associated to graph nodes, the performance of CNDK in case of using uniform discrete labels is also improved in 9 and 8 out of 11 on BioGPS and Pathways, respectively.
+%==================================================
+\section{Conclusion and future work}
 We have shown how decomposing a network in a set of connected sparse graphs allows us to take advantage of the discriminative power of CDNK, a novel decomposition kernel, to achieve state-of-the-art results. Moreover, we have also introduced the way to integrate ``side'' information in form of real valued vectors when it is available on graph to get even better performance of CDNK. In future work we will investigate how to \textit{i}) decompose networks in a data driven way and \textit{ii}) extend the CDNK approach to gene-disease association problems exploiting multiple heterogeneous information sources in a joint way.
+
+\begin{figure}[h]
+\centering
+\subfloat[Subfigure 2 list of figures text][]{
+\includegraphics[width=0.4\textwidth]{cliques.png}
+\label{fig:subfig1}}
+\subfloat[Subfigure 3 list of figures text][]{
+\includegraphics[width=0.4\textwidth]{distance.png}
+\label{fig:subfig2}}
+\qquad
+\subfloat[Subfigure 2 list of figures text][]{
+\includegraphics[width=0.4\textwidth]{degree.png}
+\label{fig:subfig3}}
+\subfloat[Subfigure 3 list of figures text][]{
+\includegraphics[width=0.4\textwidth]{vec_size.png}
+\label{fig:subfig4}}
+\caption{The performance of the system w.r.t the change of each hyper-parameter: (a) clique threshold, (b) distance threshold, (c) degree threshold, (d) real vec size threshold}
+\label{fig:globfig}
+\end{figure}
+
 %\section{The Elsevier article class}
 %
 %\paragraph{Installation} If the document class \emph{elsarticle} is not available on your computer, you can download and install the system package \emph{texlive-publishers} (Linux) or install the \LaTeX\ package \emph{elsarticle} using the package manager of your \TeX\ installation, which is typically \TeX\ Live or Mik\TeX.
