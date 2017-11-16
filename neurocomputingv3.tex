@@ -410,14 +410,13 @@ The second approach aims to encode abstract information about genes into the lab
 \textit{Real vector labels:} In addition to encoding the functional information as a discrete label, we add a richer description by computing the similarity vector w.r.t. to each cluster. In this way, we can fully exploit the latent description of the genes in terms of the different functional groups captured by the clustering procedure. Formally, given a vector $v \in \mathbb{R}^{M}$ \footnote{M is the number of GO-terms, in our experiments M = 26,501.} we compute a similarity vector $S(v)= {s_1, s_2, \ldots, s_P}$ with entries $s_i = \frac{1}{1+ \ell(v,c_i)}$ where $\ell(v,c_i)$ is the Euclidean distance of $v$ from the center of the $i^{th}$ cluster $c_i = \frac{1}{|C_i|}\sum_{x \in C_i} x$ computed as the geometric mean of the elements in the cluster $C_i$. While other notions of similarity can be used (e.g. the cosine similarity or a similarity derived from a more flexible  Mahalanobis distance), here we choose the Euclidean distance given the prior knowledge on the domain: the cosine similarity is often used as an effective way to normalize bag of words representations that encode frequencies or counts (while here we have a 0-1 encoding), and Mahalanobis distances are useful when unaccounted correlations and collinearities between features are expected (while in our case the ontology terms form a controlled non redundant vocabulary).
 
 \subsection{Model Selection}
-The hyper-parameters of the various methods were tuned using a 10-fold cross validation. However, due to the non i.i.d. nature of the problem, we emploied a stronger setup to ensure no information leakage. The dataset $0$ (Connective) on which we  validated the performance was never subsequently used in the predictive performance estimation. The values for the diffusion parameter $\beta$ in LEDK and MEDK were sampled in $\lbrace 10^{-3}, 10^{-3}, 10^{-2}, 10^{-1} \rbrace$, time steps $t$ in MDK in $\lbrace 1, 10, 100 \rbrace$ and RLK parameter $\beta$ in $\lbrace 1, 4, 7 \rbrace$. For CDNK, the degree threshold values, $D$, were sampled in $\lbrace 10,\ 15,\ 20 \rbrace$, clique size threshold, $C$, in $\lbrace 4,\ 5 \rbrace$, maximum radius, $r^*$, in $\lbrace 1,\ 2 \rbrace$, maximum distance, $d^*$, in $\lbrace 1, 2,\ 3,\ 4 \rbrace$, number of clusters $P$ in $\lbrace 5,\ 7 \rbrace$. Finally, the regularization trade off parameter in the SVM was sampled in $\lbrace 10^{-5},  \ 10^{-4}, \ 10^{-3},\ 10^{-2},\ 10^{-1}, 1,\ 10,\ 10^2 \rbrace$. The optimal parameter values of CDNK obtained by validation process are $D = 10$, $C=5$, $r^*=2$, $d^*=1$, $P=15$ and the trade-off parameter of SVM is $10^{-2}$.
+The hyper-parameters of the various methods were tuned using a 10-fold cross validation. However, due to the non i.i.d. nature of the problem, we emploied a stronger setup to ensure no information leakage. The dataset $0$ (Connective) on which we  validated the performance was never subsequently used in the predictive performance estimation. The values for the diffusion parameter $\beta$ in LEDK and MEDK were sampled in $\lbrace 10^{-3}, 10^{-3}, 10^{-2}, 10^{-1} \rbrace$, time steps $t$ in MDK in $\lbrace 1, 10, 100 \rbrace$ and RLK parameter $\beta$ in $\lbrace 1, 4, 7 \rbrace$. For CDNK, the degree threshold values, $D$, were sampled in $\lbrace 10,\ 15,\ 20 \rbrace$, clique size threshold, $C$, in $\lbrace 4,\ 5 \rbrace$, maximum radius, $r^*$, in $\lbrace 1,\ 2 \rbrace$, maximum distance, $d^*$, in $\lbrace 1, 2,\ 3,\ 4 \rbrace$, number of clusters $P$ in $\lbrace 5,\ 7 \rbrace$. Finally, the regularization trade off parameter in the SVM was sampled in $\lbrace 10^{-5},  \ 10^{-4}, \ 10^{-3},\ 10^{-2},\ 10^{-1}, 1,\ 10,\ 10^2 \rbrace$. The optimal parameter values of CDNK obtained by validation process are $D = 20$, $C=5$, $r^*=2$, $d^*=1$, $P=15$ and the trade-off parameter of SVM is $10^{-2}$.
+
 %\subsection{Parameter Impact}
 %In order to evaluate the stability of kernel w.r.t the change of each parameter values, we perform experiments with disease-gene association 2 on the BioGPS network. For each parameter, first we fix the values of all other parameters, but allow the value of considered papameter to be changed. More precisely, we use the optimal tuple $C = 5,\ d^* = 1,\ D = 20,\ P = 15$ for the fixed of parameters' values. We let the changes of $C$ in $\lbrace 4,\ 5,\ 6,\ 7,\ 8,\ 9\rbrace$, $d^*$ in $\lbrace 1,\ 2,\ 3,\ 4\rbrace$, $D$ in $\lbrace 8,\ 10,\  15,\ 20,\ 30,\ 40,\ 50\rbrace$ and real vector size, $P$ in $\lbrace 8,\ 10,\ 15,\ 20,\ 30,\ 50,\ 70, 90\rbrace$.
 
 \subsection{Results and Discussion}
-%==================================================
-%==================================================
-%==================================================
+
 \begin{table}[h]
 \caption{Predictive performance on 11 gene-disease associations in percentage using network induced by the BioGPS. Best results in bold. We report the AUC ROC and after the ``/'' the rank for each kernel method (DK = LEDK; MD = MDK; MED = MEDK; RL = RLK; CDNK1 = ontology for discrete labels; CDNK2 = ontology for both discrete and vector labels; CDNK3 = uniform discrete labels;  CDNK4 = uniform discrete labels and ontology for vector labels.) The last two rows report the averages of AUC ROC and rank over the $11$ diseases.} \vspace{1em}
 %\vspace*{5pt}
@@ -461,8 +460,7 @@ $\overline{Rank}$ & 6.09 & 7.09 &  5.36 & 4.82 & 4.45 & \textbf{1.64} & 4.18 & 2
 \end{tabular}
 \label{tab:cdnk-biogps}
 \end{table}
-%=====================================
-%=====================================
+
 \begin{table}[h]
 \caption{Predictive performance on 11 gene-disease associations in percentage using network induced by the Pathways. Best results in bold. We report the AUC ROC and after the ``/'' the rank for each kernel method (DK = LEDK; MD = MDK; MED = MEDK; RL = RLK; CDNK1 = ontology for discrete labels; CDNK2 = ontology for both discrete and vector labels; CDNK3 = uniform discrete labels;  CDNK4 = uniform discrete labels and ontology for vector labels.) The last two rows report the averages of AUC ROC and rank over the $11$ diseases.} \vspace{1em}
 %\vspace*{5pt}
@@ -513,7 +511,7 @@ CDNK variations are ranked first when considering both the average AUC-ROC and t
 
 Let now turn our attention to question {\it Q2}, i.e. whether the possibility to use local topology and/or real valued information is useful to improve performance.
 The first part of the question, i.e. usefulness of local topology, can be answered by looking at results of CDNK3, where only discrete labels defined by the baseline approach are used. If we look at results obtained on BioGPS network, we see that CDNK3 outperforms diffusion-based kernels with the 
- exceptions of datasets $3$, $7$, $8$, and $9$, thus $7$ times over $11$. It is important to stress, however, that on the average CDNK3 outperformed the diffusion-based kernels of $10.19\%$, while it was outperformed on the average of $6.05\%$. An even better scenario is observed for the Pathways network, where only in one case (dataset $4$) the performance of CDNK3 was inferior of almost all diffusion-based kernels.
+ exceptions of datasets $3$, $7$, $8$, and $9$, thus $7$ times over $11$. It is important to stress, however, that on the average CDNK3 outperformed the diffusion-based kernels of $10.19\%$, while it was outperformed on the average of $6.05\%$. An even better scenario is observed for the Pathways network, where only in one case (disease gene association $4$) the performance of CDNK3 was inferior of almost all diffusion-based kernels.
 Thus, it seems that exploiting local topological information is actually important in many cases. 
 Regarding the integration of real valued vectors, we have to look at variations CDNK2 and CDNK4, that exploit real valued labels based on GO.
 It is readily evident that CDNK2 and CDNK4 improve on the performance of diffusion-based kernels in most cases. Specifically, for BioGPS network,
@@ -529,7 +527,7 @@ In order to support our claims in Section~\ref{hyper}, we performed the followin
 and, starting from the configuration of the values for the hyper-parameters selected by the model selection procedure, we in turn moved the value of each hyper-parameter, monitoring the change in performance. We left unchanged the maximum radius ($r^*$) for computational reasons: having too big neighborhood subgraphs makes computation of isomorphism too heavy and significantly reduces the likelihood of finding matchings. The obtained results are shown in Figure~\ref{fig:globfig}.
 It can be observed that the range of values where the performance is maximal is located around small values for the hyper-parameters, thus confirming that too low or too high values for the hyper-parameters do not bring good performances.
 
-%==================================================
+
 \begin{figure}[h]
 \centering
 \subfloat[Subfigure 2 list of figures text][]{
