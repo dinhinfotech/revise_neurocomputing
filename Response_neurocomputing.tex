@@ -32,7 +32,7 @@ Second, they do not take into account additional information (i.e. properties of
 
 \item \textit{lines 146-150: The first claim is misleading. The problem is not that the degree of some nodes is high it is that the degree distribution is highly skewed (and you must include a reference stating this fact for biological networks, as well as describe the own networks on which you are working for this property). Also, the rest of the argument is very strange: how do you get that the probability to find matches decreases exponentially. If there is a mathematical argument behind it, please, detail it;}
 
-\underline{Answer}: The existance of high degree nodes will lead to the big neighborhood subgraphs. Since the proposed kernel is based on the exact matching neighborhood subgraphs (isomorphic neighborhood subgraphs), there will be a low probability to find any couple of big neighborhood subgraphs which are isomorphic. This probabability decrease shapely w.r.t the increase of neighborhood subgraphs size or node degree.
+\underline{Answer}: The existence of high degree nodes will lead to big neighborhood subgraphs. Since the proposed kernel is based on the exact matching neighborhood subgraphs (isomorphic neighborhood subgraphs), there will be a low probability to find any couple of big neighborhood subgraphs which are isomorphic. This probability decrease sharply w.r.t the increase of neighborhood subgraphs size or node degree as a result of the combinatorial increase in the number of possible labeled graphs w.r.t. the graph size.
 
 \end{itemize}
 
@@ -40,7 +40,8 @@ Second, they do not take into account additional information (i.e. properties of
 
 \underline{Answer}: We agree with the suggestion of the reviewer about the title of the kernel that it should be toward to disease gene prioritization. Therefore, we have modified it as "The conjunctive disjunctive graph node kernel for disease gene prioritization" in the new version of the paper.\\
 
-In general, our kernel takes labeled graphs as the input. Given a graph, users can apply any proper node labeling function to the graph.  The labeling functions proposed in the paper are examples to evaluate the performance of the disease gene prioritization system with the use of our kernel. Regarding the proposed labeling functions, we consider topological labels as discrete labels. The GO datasets do not provide complete information. However, they still provide additional information for the kernel. We strongly agree that the intensitive evaluation for labeling functions is necessary to improve the performance of the proposed kernel. However, in this paper, we would like to have an attempt to see how the CDNK performs compared to other graph node kernels.
+The proposed kernel takes labeled graphs in input. The appropriate node labeling function is domain dependent and can be freely defined by the user. In this paper we propose a couple of labeling functions to evaluate the performance of the disease gene prioritization system with the use of our kernel. We consider a trivial constant label to show the capacity of the approach to exploit topological information only. In addition we consider a domain dependent source of information derived by the GO hierarchy. We agree that a more extensive evaluation for labeling functions would improve the performance on a specific task. The scope of the evaluation presented in this paper is however only to show that CDNK can in principle improve results by exploiting domain knowledge.
+
 
 \subsection*{3} \textit{The paper is extremely badly organized, with some notions (like conjunctive and disjunctive edges) used before they are defined. I suggest the following re-organization of the paper:}
 
@@ -68,7 +69,7 @@ In general, our kernel takes labeled graphs as the input. Given a graph, users c
 
 In the evaluation, we would like to compare node kernel diffusion-based graph node kernels on relatively dense networks, since diffusion-based kernels often show good performance with dense networks. That is why we borrow BioGPS and Pathways which are used in [2]. \\
 
-In disease prioritization, given a genetic disease, we are often given a small set of positive genes and a large set of un-labeled genes. It is difficult to have a proper negative set of genes. Therefore, in [2] they choose the number of postive genes two times greater than the number of negative ones. The negative genes are choosen from genes that are associated with at least one disease class, but are not related to the class that is defining the positive set. We assume that they are less likely to be associated to the considered class, since disease genes are generally more studied and a potential association has more chances to be identified.
+In disease prioritization, given a genetic disease, we are often given a small set of positive genes and a large set of unlabeled genes. It is difficult to have a proper negative set of genes. Therefore, in [2] they choose the number of positive genes two times greater than the number of negative ones. The negative genes are chosen from genes that are associated with at least one disease class, but are not related to the class that is defining the positive set. We assume that they are less likely to be associated to the considered class, since disease genes are generally more studied and a potential association has more chances to be identified.
 
 \section{Reviewer 2}
 \begin{itemize}
