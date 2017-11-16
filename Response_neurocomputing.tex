@@ -2,40 +2,46 @@
 \usepackage{color}
 \usepackage{amsthm,amsmath,amsfonts}
 \usepackage[utf8x]{inputenc}
-\title{Revision notes for paper\\``The Conjunctive Disjunctive Graph Node Kernel''}
+\title{Revision notes for paper\\``The Conjunctive Disjunctive Graph Node Kernel for Disease Gene Prioritization''}
 \author{Dinh Tran Van, Alessandro Sperduti and Fabrizio Costa }
 \begin{document}
 \maketitle
 
-We thank the reviewer for the reviews and helpful comments on our manuscript ``The Conjunctive Disjunctive Graph Node Kernel''. 
-In the following, we provide a description of how each comment (in \emph{italic}) has been addressed in this version of the paper.
+We thank the reviewer for the reviews and helpful comments on our manuscript ``The Conjunctive Disjunctive Graph Node Kernel for
+Disease Gene Prioritization''. In the following, we provide a description of how each comment (in \emph{italic}) has been addressed in this version of the paper.
 
 \section{Reviewer 1}
 \subsection*{1}
 \begin{itemize}
 \item \textit{lines 10-15: if the first claim (bias toward high degree nodes for the heat kernel) is understandable, the others are not and I don't get how the diffusion kernel (for instance) solves this issue, since it is very similar to the previous one. An evaluation of how the kernels address this property should be included in the experimental section or the authors should cite a paper already studying this property on different kernels;}
 
-\underline{Answer}: in LEDK, the similarity values between high degree nodes are generally higher compared to those between low degree ones. Intuitively, the more paths connect two vertices, the more heat can flow between them. This could be problematic since peripheral nodes have unbalanced similarities with respect to central nodes. MEDK adapt LEDK by adding a normalization in order to make the strength of individual vertices comparable.
+\underline{Answer}: we explain in detail in ``Section Graph Node Kernels" of the revised version as follows.\\
+
+In DK, the similarity values between high degree vertices are generally higher compared to those between low degree ones. Intuitively, the more paths connect two vertices, the more heat can flow between them. This could be problematic since peripheral nodes (i.e., low degree nodes) have unbalanced similarities with respect to central nodes (i.e., high degree nodes). In order to make the strength of individual vertices comparable, a modified version of DK is Markov exponential diffusion kernel (MED) and given by the following formula:
+\begin{equation}
+\textbf{K} = e^{-\beta \textbf{M}}.
+\end{equation}
+The difference with respect to the DK is the replacement of $\textbf{L}$ by the matrix $\textbf{M}=(\textbf{D}-\textbf{A}-n\textbf{I})/n$ where $n$ is the total number of vertices in the graph. In particular, the introduced modification of the Laplacian is designed to compensate the problem described above via a sort of normalization of the degree of vertices. The role of $\beta$ is the same as for DK.
 
 \item \textit{lines 20-25: what does "process in an additive and independent fashion" mean in this context. Similarly as before, please justify your claim about the poor discriminative power of these kernels;}
 
+\underline{Answer}: we explain in more intuitive way in the new version of the paper.\\
 
-\underline{Answer}: 
+The state-of-the-art graph node kernels used to measure node similarity are based on the notion of information diffusion, which mainly depends on the number of paths connecting two nodes in the graph. These graph node kernels often show relatively low discriminative capacity, especially when working with sparse graphs (i.e., graphs with a  low number of  links), because of the following limitations. First, they are defined using a heat diffusion dynamics which sums up the contributions of all  paths from one node to another one, disregarding the local topological context of the nodes and considering the single contribution of one path as independent with respect to the contributions of other paths.
+Second, they do not take into account additional information (i.e. properties of a single node) eventually associated to nodes of graphs, when available.
 
 \item \textit{lines 146-150: The first claim is misleading. The problem is not that the degree of some nodes is high it is that the degree distribution is highly skewed (and you must include a reference stating this fact for biological networks, as well as describe the own networks on which you are working for this property). Also, the rest of the argument is very strange: how do you get that the probability to find matches decreases exponentially. If there is a mathematical argument behind it, please, detail it;}
 
-\underline{Answer}: the kernel extracts features as pairwise neighiborhood subgraphs. If the degree of nodes is high, it leads to big extracted neighborhood subgraphs, and it is difficult to find big graphs which are isomorphic. Therefore, we state that the probability to find matches exponentially decreases w.r.t the node degree.
+\underline{Answer}: The existance of high degree nodes will lead to the big neighborhood subgraphs. Since the proposed kernel is based on the exact matching neighborhood subgraphs (isomorphic neighborhood subgraphs), there will be a low probability to find any couple of big neighborhood subgraphs which are isomorphic. This probabability decrease shapely w.r.t the increase of neighborhood subgraphs size or node degree.
 
 \end{itemize}
 
-\subsection*{2} \textit{The paper is oriented exclusively toward an given application in biology. However, it is not visible from the title of the article and methodological choices are seldom justified in this context. Gene labelling should be evaluated: for instance, it would have been helpful to have a descriptive evaluation of the results of those labels in the experiment section. For the topological labelling, what is the biological meaning of nodes with similar degree being more similar? (give a reference) I don't understand if the topological labels are considered as a discrete or numerical label? An example of the way it partitions the network would be useful. For the functional labelling, evaluate your clusters in a way. Do they somehow relate to the graph structure or not? Do they correspond to clusters enriched in some functions? How robust is this clustering to very incomplete information as found in GO databases? In a similar fashion, can you provide an evaluation of your decomposition on the networks you are working with?}
+\subsection*{2} \textit{The paper is oriented exclusively toward an given application in biology. However, it is not visible from the title of the article and methodological choices are seldom justified in this context. Gene labelling should be evaluated: for instance, it would have been helpful to have a descriptive evaluation of the results of those labels in the experiment section. For the topological labelling, what is the biological meaning of nodes with similar degree being more similar? (give a reference) I don't understand if the topological labels are considered as a discrete or numerical label? An example of the way it partitions the network would be useful. For the functional labelling, evaluate your clusters in a way. Do they somehow relate to the graph structure or not? Do they correspond to clusters enriched in some functions? How robust is this clustering to very incomplete information as found in GO databases? In a similar fashion, can you provide an evaluation of your decomposition on the networks you are working with?} \\
 
-\underline{Answer}: 
-\begin{itemize}
-\item We have modified the title of the paper toward to disease gene prioritization.
-\item In the method, we consider the topological labeling as the discrete label
-\item The number of clusters used in the functional labeling is chosen from a set of predefined values through the model selection.
-\end{itemize}
+\underline{Answer}: We agree with the suggestion of the reviewer about the title of the kernel that it should be toward to disease gene prioritization. Therefore, we have modified it as "The conjunctive disjunctive graph node kernel for disease gene prioritization" in the new version of the paper.\\
+
+In general, our kernel takes labeled graphs as the input. Given a graph, users can apply any proper node labeling function to the graph.  The labeling functions proposed in the paper are examples to evaluate the performance of the disease gene prioritization system with the use of our kernel. Regarding the proposed labeling functions, we consider topological labels as discrete labels. The GO datasets do not provide complete information. However, they still provide additional information for the kernel. We strongly agree that the intensitive evaluation for labeling functions is necessary to improve the performance of the proposed kernel. However, in this paper, we would like to have an attempt to see how the CDNK performs compared to other graph node kernels.
+
 \subsection*{3} \textit{The paper is extremely badly organized, with some notions (like conjunctive and disjunctive edges) used before they are defined. I suggest the following re-organization of the paper:}
 
 \begin{enumerate}
@@ -45,36 +51,38 @@ In the following, we provide a description of how each comment (in \emph{italic}
 
 \item \textit{A new kernel (or whatever title you want more informative than "Material and methods" that is a title better suited for bioinformatics journals) with A. Notations B. Node graph kernels + their problems C. Network decomposition D. Your kernel (with the case of discrete and numerical labels separated)}
 
-\underline{Answer}: the organization of the paper is modified based on the reviewer's comments.
+\underline{Answer}: we have re-organized the structure of the paper based on the reviewer's comments.
 
 \item \textit{Examples of node labelling in your context (to my opinion, Section 2.2.2 does not need the labels to be known. Just explain the kernel in Section 2 and then, in a separate section afterwards, explain your proposals for labelling with a better illustration of their usefulness in the biological framework)}
 
-\underline{Answer}: 
-We have modified based on the reviewer's comment.
+\underline{Answer}: we have modified the paper based on the reviewer's comment.
 
 \item \textit{Experiments (since the discussion section is very short, I don't think that it is necessary or even relevant to have it separated from the rest of the paper)}
+
+\underline{Answer}: we have modified the paper based on the reviewer's comment.
+
 \end{enumerate}
+\subsection*{4} \textit{The experimental part is very light. I would have expected to see a smart evaluation on a simulated dataset illustrating in which theoretical cases the approach is relevant. I think that an evaluation of the sensitivity of the method to some parameters is missing. For instance, why use a gene co-expression network with a correlation threshold of 0.5? (To my own experience, this is a very low threshold that should give a very dense network and is not the standard choices in this area). Also, why have twice less negative examples than positive ones (this is very far from being realistic since positive genes are usually very rare in this kind of real-life applications)?} \\
 
-\underline{Answer}: 
-We already modified based on the reviewer's comment.
-\subsection*{4} \textit{The experimental part is very light. I would have expected to see an smart evaluation on a simulated dataset illustrating in which theoretical cases the approach is relevant. I think that an evaluation of the sensitivity of the method to some parameters is missing. For instance, why use a gene co-expression network with a correlation threshold of 0.5? (To my own experience, this is a very low threshold that should give a very dense network and is not the standard choices in this area). Also, why have twice less negative examples than positive ones (this is very far from being realistic since positive genes are usually very rare in this kind of real-life applications)?} 
+\underline{Answer}: We would like to compare our node kernel diffusion-based graph node kernels on relatively dense networks, since diffusion-based kernels often show good performance with dense networks. That is why we borrow BioGPS and Pathways which are used in [2]. \\
 
-\underline{Answer}: we follow the experimental setting, including dataset BioGPS and Pathways, performed in [2]. 
+In disease prioritization, given a genetic disease, we are often given a small set of positive genes and a large set of un-labeled genes. It is difficult to have a proper negative set of genes. Therefore, in [2] they choose the number of postive genes two times greater than the number of negative ones. The negative genes are choosen from genes that are associated with at least one disease class, but are not related to the class that is defining the positive set. We assume that they are less likely to be associated to the considered class, since disease genes are generally more studied and a potential association has more chances to be identified.
+
 \section{Reviewer 2}
 \begin{itemize}
 \item \textit{I have found the paper to be hard to follow. This is mostly due to the large number of "sub-methods" that are involved in the proposed apparach, and to the too simplified description of the "global picture" of what the authors are proposing. It would be better to have an initial section or a table or a figure to summarize and easily introduce what the authors are going to propose/describe in the rest of the paper.}
 
-\underline{Answer}: we have modified based on the reviewer's comment.
+\underline{Answer}: we have modified the structure of the paper in order to be easier to follow.
 
 \item \textit{Related to the previous comment, the notion of conjunctive and disjuctive edges seems central, however they are shortly mentioned in Section 2.2.2 and then shorlty re-defined (?) in Section 2.4. In the first case, the description of these edges must be expanced and clarified, togheter with some more details about Figure 1 (caption and text). Maybe it can be anticipated in the "Definitions" paragraph (page 3), or in the "initial decription" that I introduced in the previous comment.}
 
-\underline{Answer}: we have modified based on the reviewer's comment.
+\underline{Answer}: We have added a more detailed explanation in the new version of the paper based on the reviewer's comment.
 
 \item \textit{Overall, there is very large number of parameters involved in the proposed approach. The authors describe their model validation procedure in Page 9/10, however the space of possible combinations of parameters is huge + the choices over other thresholds described in the paper. This seems to be an important drawback of the method, and some comments on this point should be added.}
 
-\underline{Answer}: We have added a new section named Parameter Space with the content as follow.
+\underline{Answer}: We have added a new section named ``Hyper-parameter" to explain why the parameter space for the proposed kernel is not high as follows.\\
 
-The kernel consists of five parameters: the threshold degree $D$, clique size threshold $C$, maximal radius $r^*$, maximal distance $d^*$ and number of clusters $P$ clusters in which their values are in $\mathbb{N}^*$. In order to choose the optimal tuple of parameters for kernel in a specific setting, a model selection procedure is normally adopted from a determined subset of parameter space. The parameter space of our kernel seems large due to the relatively high number of parameters. However, most parameter values are supposed to be in limited natural ranges. Therefore, it is actually not too big. In particular, the clique size threshold $C$ is recommended to be in $\lbrace 4, 5\rbrace$. The maximal radius $r^*$ is set with a value smaller than or equal to $3$ since it will lead to big neighborhood subgraphs. The maximal distance $d^*$ is assigned with values less than or equal to $4$ because the value of the maximal shortest distance between nodes in a connected component is often not too high. The values of the threshold degree $D$ should neither be too high and too low. If it is high, we have to face with high degree node problem, and if it is too low, the obtained graph contains of too sparse connected components. Therefore, we suggest the value for $D$ in $\left[6, 20 \right]$
+Our kernel consists of five hyper-parameters: the threshold degree $D$, the clique size threshold $C$, the maximal radius $r^*$, the maximal distance $d^*$, and the number of clusters $P$. In order to choose the optimal tuple of   values for kernel hyper-parameters in a specific setting, a model selection procedure is normally adopted. The hyper-parameter space of our kernel is potentially large due to the relatively high number of hyper-parameters. However, all hyper-parameters are integer variables and it makes sense to use only small values for them. For example, the value of the threshold degree $D$ should neither be too high nor too low: if it is high, the neighborhood subgraphs are going to be too big and the isomorphism check becomes inefficient; vice versa, if it is too low, the decomposed graph contains connected components which are too sparse to allow learning to be effective. Moreover, it is reasonable to keep the clique size threshold $C$ within a narrow range of values in order to avoid the removal of too many edges. Concerning the maximal radius $r^*$,  too  high values will lead again to big neighborhood subgraphs, especially in graphs with a high node degree average. The maximal distance $d^*$ can be set with small values since the average shortest distance length between nodes of biological networks is relatively low. Finally, if the value assigned to $P$ is too low, all nodes basically get the same information attached to them and thus the labels are not informative; vice versa, if a high value is used, there will be very few matches and the kernel will be extremely sparse, making learning ineffective.
 
 \item \textit{Page 4, Functional label and real valued vector information encoding: The K-means algorithm is exploited, using the classical Euclidean distance, and the same distance is used in the vec.info.encoding. The authors should motivate this choice.}
 
@@ -84,4 +92,6 @@ The kernel consists of five parameters: the threshold degree $D$, clique size th
 
 \underline{Answer}: We have added a more detailed explanation in the new version of the paper.
 \end{itemize}
+
+\bibliography{mybibfile}
 \end{document}
