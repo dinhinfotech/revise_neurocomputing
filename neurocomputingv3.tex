@@ -311,7 +311,7 @@ The CDNK is finally defined as $K(u,u^\prime) = \sum\limits_{r}{\sum\limits_{d}{
 \end{figure}
 
 \subsection{Additional Node Information}
-In order to integrate the information of real vector labels that may be present associated to nodes, we proceed as follows. We compute a sparse vector representation for the conjunctive neighborhood graph rooted at node $u$ following \cite{costa2010fast}: for each conjunctive neighborhood subgraph we calculate the quasi-isomorphism certificate hash code; we then combine the hashes for the pair of neighborhoods and use the resulting integer as a feature indicator. This yields a direct sparse vector representation (associated to node $u$ in graph $G^{\wedge\vee}$) $f: u \longmapsto \mathbb{R}^N$ where $N \approx 10^6$. Given the real valued vector information associated to nodes in graph $G^{\wedge\vee}$, we also cluster\footnote{Any clustering algorithm that returns cluster representations provided of a function to measure the similarity of a vector with respect to a given cluster will do the job.} them in $P$ clusters (c.f.r. Section \ref{sec:lab}) and define a function $g: u \longmapsto \mathbb{R}^P$ which returns the multi-class similarity w.r.t. each of the $P$ cluster (prototypes). 
+In order to integrate the information of real vector labels that may be present associated to nodes, we proceed as follows. We compute a sparse vector representation for the conjunctive neighborhood graph rooted at node $u$ following \cite{costa2010fast}: for each conjunctive neighborhood subgraph we calculate a quasi-isomorphism certificate hash code\footnote{The graph hashing is obtained by  hashing the sorted sequence of edge extended information which includes an invariant encoding of the endpoint labels (see \cite{costa2010fast}).}; we then combine the hashes for the pair of neighborhoods and use the resulting integer as a feature indicator. This yields a direct sparse vector representation (associated to node $u$ in graph $G^{\wedge\vee}$) $f: u \longmapsto \mathbb{R}^N$ where $N \approx 10^6$. Given the real valued vector information associated to nodes in graph $G^{\wedge\vee}$, we also cluster\footnote{Any clustering algorithm that returns cluster representations provided of a function to measure the similarity of a vector with respect to a given cluster will do the job.} them in $P$ clusters (c.f.r. Section \ref{sec:lab}) and define a function $g: u \longmapsto \mathbb{R}^P$ which returns the multi-class similarity w.r.t. each of the $P$ cluster (prototypes). 
 
 A new version of CDNK considering the discrete convolution of the discrete information with the real valued information can now be computed as:   
 \begin{equation}
@@ -407,10 +407,10 @@ A first baseline approach is to use the same label for every node of the graph. 
 
 The second approach aims to encode abstract information about genes into the labels. The idea, in this case, is to allow  downstream machine learning algorithms to generalize from similar examples and to allow the identification of overlooked but related genes. To this aim, we employ a gene ontology (GO) \cite{gene2004gene} to construct binary vectors representing a bag-of-terms encoding for each gene, i.e. an element of the binary vector is equal to 1 if its corresponding GO-term is associated to the gene, and is equal to 0 otherwise. The resulting vectors are then clustered using the k-means algorithm into a user defined number of classes, $P$, so that genes with similar description profiles receive the same class identifier as label.
 
-\textit{Real vector labels:} In addition to encoding the functional information as a discrete label, we add a richer description by computing the similarity vector w.r.t. to each cluster. In this way, we can fully exploit the latent description of the genes in terms of the different functional groups captured by the clustering procedure. Formally, given a vector $v \in \mathbb{R}^{M}$ \footnote{M is the number of GO-terms, M = 26,501} we compute a similarity vector $S(v)= {s_1, s_2, \ldots, s_P}$ with entries $s_i = \frac{1}{1+ \ell(v,c_i)}$ where $\ell(v,c_i)$ is the Euclidean distance of $v$ from the center of the $i^{th}$ cluster $c_i = \frac{1}{|C_i|}\sum_{x \in C_i} x$ computed as the geometric mean of the elements in the cluster $C_i$.
+\textit{Real vector labels:} In addition to encoding the functional information as a discrete label, we add a richer description by computing the similarity vector w.r.t. to each cluster. In this way, we can fully exploit the latent description of the genes in terms of the different functional groups captured by the clustering procedure. Formally, given a vector $v \in \mathbb{R}^{M}$ \footnote{M is the number of GO-terms, in our experiments M = 26,501.} we compute a similarity vector $S(v)= {s_1, s_2, \ldots, s_P}$ with entries $s_i = \frac{1}{1+ \ell(v,c_i)}$ where $\ell(v,c_i)$ is the Euclidean distance of $v$ from the center of the $i^{th}$ cluster $c_i = \frac{1}{|C_i|}\sum_{x \in C_i} x$ computed as the geometric mean of the elements in the cluster $C_i$. While other notions of similarity can be used (e.g. the cosine similarity or a similarity derived from a more flexible  Mahalanobis distance), here we choose the Euclidean distance given the prior knowledge on the domain: the cosine similarity is often used as an effective way to normalize bag of words representations that encode frequencies or counts (while here we have a 0-1 encoding), and Mahalanobis distances are useful when unaccounted correlations and collinearities between features are expected (while in our case the ontology terms form a controlled non redundant vocabulary).
 
 \subsection{Model Selection}
-The hyper-parameters of the various methods were tuned using a 10-fold cross validation. However, due to the non i.i.d. nature of the problem, we emploied a stronger setup to ensure no information leakage. The dataset $0$ (Connective) on which we  validated the performance was never subsequently used in the predictive performance estimation. The values for the diffusion parameter $\beta$ in LEDK and MEDK were sampled in $\lbrace 10^{-3}, 10^{-3}, 10^{-2}, 10^{-1} \rbrace$, time steps $t$ in MDK in $\lbrace 1, 10, 100 \rbrace$ and RLK parameter $\beta$ in $\lbrace 1, 4, 7 \rbrace$. For CDNK, the degree threshold values, $D$, were sampled in $\lbrace 10,\ 15,\ 20 \rbrace$, clique size threshold, $C$, in $\lbrace 4,\ 5 \rbrace$, maximum radius, $r^*$, in $\lbrace 1,\ 2 \rbrace$, maximum distance, $d^*$, in $\lbrace 1, 2,\ 3,\ 4 \rbrace$, number of clusters $P$ in $\lbrace 5,\ 7 \rbrace$. Finally, the regularization trade off parameter in the SVM was sampled in $\lbrace 10^{-5},  \ 10^{-4}, \ 10^{-3},\ 10^{-2},\ 10^{-1}, 1,\ 10,\ 10^2 \rbrace$. The optimal parameter values of CDNK obtained by validation process are $D = 1$, $C=5$, $r^*=2$, $d^*=1$, $P=15$ and the trade-off parameter of SVM is $10^{-2}$.
+The hyper-parameters of the various methods were tuned using a 10-fold cross validation. However, due to the non i.i.d. nature of the problem, we emploied a stronger setup to ensure no information leakage. The dataset $0$ (Connective) on which we  validated the performance was never subsequently used in the predictive performance estimation. The values for the diffusion parameter $\beta$ in LEDK and MEDK were sampled in $\lbrace 10^{-3}, 10^{-3}, 10^{-2}, 10^{-1} \rbrace$, time steps $t$ in MDK in $\lbrace 1, 10, 100 \rbrace$ and RLK parameter $\beta$ in $\lbrace 1, 4, 7 \rbrace$. For CDNK, the degree threshold values, $D$, were sampled in $\lbrace 10,\ 15,\ 20 \rbrace$, clique size threshold, $C$, in $\lbrace 4,\ 5 \rbrace$, maximum radius, $r^*$, in $\lbrace 1,\ 2 \rbrace$, maximum distance, $d^*$, in $\lbrace 1, 2,\ 3,\ 4 \rbrace$, number of clusters $P$ in $\lbrace 5,\ 7 \rbrace$. Finally, the regularization trade off parameter in the SVM was sampled in $\lbrace 10^{-5},  \ 10^{-4}, \ 10^{-3},\ 10^{-2},\ 10^{-1}, 1,\ 10,\ 10^2 \rbrace$. The optimal parameter values of CDNK obtained by validation process are $D = 10$, $C=5$, $r^*=2$, $d^*=1$, $P=15$ and the trade-off parameter of SVM is $10^{-2}$.
 %\subsection{Parameter Impact}
 %In order to evaluate the stability of kernel w.r.t the change of each parameter values, we perform experiments with disease-gene association 2 on the BioGPS network. For each parameter, first we fix the values of all other parameters, but allow the value of considered papameter to be changed. More precisely, we use the optimal tuple $C = 5,\ d^* = 1,\ D = 20,\ P = 15$ for the fixed of parameters' values. We let the changes of $C$ in $\lbrace 4,\ 5,\ 6,\ 7,\ 8,\ 9\rbrace$, $d^*$ in $\lbrace 1,\ 2,\ 3,\ 4\rbrace$, $D$ in $\lbrace 8,\ 10,\  15,\ 20,\ 30,\ 40,\ 50\rbrace$ and real vector size, $P$ in $\lbrace 8,\ 10,\ 15,\ 20,\ 30,\ 50,\ 70, 90\rbrace$.
 
@@ -550,12 +550,95 @@ It can be observed that the range of values where the performance is maximal is 
 
 \section{Conclusion and Future Work}
 We have shown how decomposing a network in a set of connected sparse graphs allows us to take advantage of the discriminative power of CDNK, a novel decomposition kernel, to achieve state-of-the-art results for a disease gene prioritization task.
-Moreover, we have also introduced the possibility to integrate in the kernel computation  additional information in the form of real valued vectors in the case in which it is available for graph nodes. We experimentally showed that this possibility actually leads to even better performances. Future work we will investigate on how to: \textit{i}) decompose networks in a data driven way; \textit{ii}) extend the CDNK approach to gene-disease association problems exploiting multiple heterogeneous information sources in a joint way.
+Moreover, we have also introduced the possibility to integrate in the kernel computation  additional information in the form of real valued vectors when such information is available for each graph node. We experimentally showed that this actually leads to improved performances. In future work we will investigate how to \textit{i}) decompose networks in a data driven way and \textit{ii}) extend the CDNK approach to gene-disease association problems exploiting multiple heterogeneous information sources.
 
 
 \section*{Funding}
 This work was supported by the University of Padova, Strategic Project BIOINFOGEN.
 \section*{References}
 
-\bibliography{mybibfile}
+%\bibliography{mybibfile}
+\begin{thebibliography}{10}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \def\href#1#2{#2} \def\path#1{#1}\fi
+
+\bibitem{mordelet2011prodige}
+F.~Mordelet, J.-P. Vert, Prodige: Prioritization of disease genes with
+  multitask machine learning from positive and unlabeled examples, BMC
+  bioinformatics 12~(1) (2011) 389.
+
+\bibitem{chen2014disease}
+B.~Chen, M.~Li, J.~Wang, F.-X. Wu, Disease gene identification by using graph
+  kernels and markov random fields, Science China. Life Sciences 57~(11) (2014)
+  1054.
+
+\bibitem{valentini2014extensive}
+G.~Valentini, A.~Paccanaro, H.~Caniza, A.~E. Romero, M.~Re, An extensive
+  analysis of disease-gene associations using network integration and fast
+  kernel-based gene prioritization methods, Artificial Intelligence in Medicine
+  61~(2) (2014) 63--78.
+
+\bibitem{kondor2002diffusion}
+R.~I. Kondor, J.~Lafferty, Diffusion kernels on graphs and other discrete input
+  spaces, in: ICML, Vol.~2, 2002, pp. 315--322.
+
+\bibitem{fouss2006experimental}
+F.~Fouss, L.~Yen, A.~Pirotte, M.~Saerens, An experimental investigation of
+  graph kernels on a collaborative recommendation task, in: Data Mining, 2006.
+  ICDM'06. Sixth International Conference on, IEEE, 2006, pp. 863--868.
+
+\bibitem{chebotarev2006matrix}
+P.~Chebotarev, E.~Shamis, The matrix-forest theorem and measuring relations in
+  small social groups, arXiv preprint math/0602070.
+
+\bibitem{haussler1999convolution}
+D.~Haussler, Convolution kernels on discrete structures, Tech. rep., Technical
+  report, Department of Computer Science, University of California at Santa
+  Cruz (1999).
+
+\bibitem{gartner2003survey}
+T.~G{\"a}rtner, A survey of kernels for structured data, ACM SIGKDD
+  Explorations Newsletter 5~(1) (2003) 49--58.
+
+\bibitem{borgwardt2005shortest}
+K.~M. Borgwardt, H.-P. Kriegel, Shortest-path kernels on graphs, in: Data
+  Mining, Fifth IEEE International Conference on, IEEE, 2005, pp. 8--pp.
+
+\bibitem{shervashidze2009fast}
+N.~Shervashidze, K.~M. Borgwardt, Fast subtree kernels on graphs, in: Advances
+  in neural information processing systems, 2009, pp. 1660--1668.
+
+\bibitem{shervashidze2011weisfeiler}
+N.~Shervashidze, P.~Schweitzer, E.~J.~v. Leeuwen, K.~Mehlhorn, K.~M. Borgwardt,
+  Weisfeiler-lehman graph kernels, Journal of Machine Learning Research
+  12~(Sep) (2011) 2539--2561.
+
+\bibitem{costa2010fast}
+F.~Costa, K.~De~Grave, Fast neighborhood subgraph pairwise distance kernel, in:
+  Proceedings of the 26th International Conference on Machine Learning,
+  Omnipress, 2010, pp. 255--262.
+
+\bibitem{alvarez2005k}
+J.~I. Alvarez-Hamelin, L.~Dall'Asta, A.~Barrat, A.~Vespignani, k-core
+  decomposition: A tool for the visualization of large scale networks, arXiv
+  preprint cs/0504107.
+
+\bibitem{tarjan1985decomposition}
+R.~E. Tarjan, Decomposition by clique separators, Discrete mathematics 55~(2)
+  (1985) 221--232.
+
+\bibitem{goh2007human}
+K.-I. Goh, M.~E. Cusick, D.~Valle, B.~Childs, M.~Vidal, A.-L. Barab{\'a}si, The
+  human disease network, Proceedings of the National Academy of Sciences
+  104~(21) (2007) 8685--8690.
+
+\bibitem{gene2004gene}
+G.~O. Consortium, et~al., The gene ontology (go) database and informatics
+  resource, Nucleic acids research 32~(suppl 1) (2004) D258--D261.
+
+\end{thebibliography}
+
 \end{document}
